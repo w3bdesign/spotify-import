@@ -32,6 +32,7 @@ body {
     margin-bottom: 10px;
     font-weight: bold;
     font-size: 1.1rem;
+    margin-top: 10px;
   }
   
   .form__input,
@@ -49,6 +50,10 @@ body {
   .form__textarea {
     resize: vertical;
   }
+
+  #song_recommendations {
+	height: 300px;
+}
   
   .form__submit {
     background-color: #1db954;
@@ -87,6 +92,8 @@ body {
   .message--success {
     background-color: #1db954;
     color: #fff;
+    padding:15px;
+    margin-bottom: 30px;
   }
   
   .message--error {
