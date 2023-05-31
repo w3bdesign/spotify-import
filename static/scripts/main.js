@@ -1,4 +1,5 @@
 import { displaySuggestions, generateSongSuggestions } from "./songHandling.js";
+import { fetchAndDisplayPlaylists } from "./playlistHandling.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Enable transitions after DOM load
@@ -6,6 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     document.getElementById("body").classList.remove("no-transition");
   }, "1000");
+
+  // Call the function to fetch and display the playlists
+  fetchAndDisplayPlaylists();
 
   document
     .getElementById("song-form")

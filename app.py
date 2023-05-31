@@ -77,7 +77,7 @@ def search_song():
         auth_manager=SpotifyOAuth(
             client_id=client_id,
             client_secret=client_secret,
-            redirect_uri=redirect_uri,
+            redirect_uri=redirect_uri,         
             scope="playlist-modify-public",
             username=username,
         )
@@ -139,6 +139,29 @@ def index():
         client_secret=client_secret,
         redirect_uri=redirect_uri,
     )
+
+
+"""
+Endpoint that returns all playlists of the authenticated user.
+
+:return: A JSON object containing a list of the current user's playlists.
+:rtype: flask.Response
+"""
+
+
+@app.route("/playlists", methods=["GET"])
+def get_playlists():
+    sp = spotipy.Spotify(
+        auth_manager=SpotifyOAuth(
+            client_id=client_id,
+            client_secret=client_secret,
+            redirect_uri=redirect_uri,
+            scope="playlist-modify-public playlist-read-private",
+            username=username,
+        )
+    )
+    user_playlists = sp.current_user_playlists()
+    return jsonify(user_playlists)
 
 
 """

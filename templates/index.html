@@ -36,8 +36,8 @@
         >Number of suggestions:</label
       >
       <select class="form__input" id="num_suggestions" name="num_suggestions">
-        <option value="10">10</option>
-        <option value="20" selected>20</option>
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
         <option value="30">30</option>
         <option value="40">40</option>
         <option value="50">50</option>
@@ -48,7 +48,7 @@
     </form>
     <br />
     <div class="form-background" id="song-suggestions"></div>
-    <h1>Import To Spotify Playlist</h1>
+    <h1>New Spotify Playlist</h1>
     <form class="form" method="post" id="playlist-form">
       <label class="form__label" for="playlist_name">Playlist Name:</label>
       <input
@@ -79,11 +79,149 @@
         cols="50"
         disabled
       ></textarea>
-      <div class="submit-wrapper">       
-        <input class="form__submit" type="submit" value="Create Playlist" />
+      <div class="submit-wrapper">
+        <input class="form__submit" type="submit" value="New Playlist" />
         <button class="form__submit__warning" type="reset">Reset</button>
       </div>
     </form>
+
+    <h1>Playlists:</h1>
+    <div id="playlist-container"></div>
+
+    <!-- Tabbed navigation -->
+
+    <div class="tabs">
+      <button class="tab" id="newPlaylistTab">New Playlist</button>
+      <button class="tab" id="importPlaylistTab">
+        Import to Existing Playlist
+      </button>
+    </div>
+    <div class="tab-content" id="newPlaylistContent">
+      <br />&nbsp;
+      <h2>New Playlist</h2>
+      <form class="form" method="post" id="playlist-form">
+        <label class="form__label" for="playlist_name">Playlist Name:</label>
+        <input
+          class="form__input"
+          type="text"
+          id="playlist_name"
+          name="playlist_name"
+          required
+        /><br />
+        <label class="form__label" for="playlist_description"
+          >Playlist Description:</label
+        >
+        <input
+          class="form__input"
+          type="text"
+          id="playlist_description"
+          name="playlist_description"
+          required
+        /><br />
+        <label class="form__label" for="song_recommendations"
+          >Song Recommendations (one per line):</label
+        >
+        <textarea
+          class="form__textarea"
+          id="song_recommendations"
+          name="song_recommendations"
+          rows="10"
+          cols="50"
+          disabled
+        ></textarea>
+        <div class="submit-wrapper">
+          <input class="form__submit" type="submit" value="New Playlist" />
+          <button class="form__submit__warning" type="reset">Reset</button>
+        </div>
+      </form>
+    </div>
+    <div class="tab-content" id="importPlaylistContent" style="display: none">
+      <br />&nbsp;
+      <h2>Import to Existing Playlist</h2>
+      <form class="form" method="post" id="playlist-form">
+        <label class="form__label" for="playlist_name">Playlist Name:</label>
+        <input
+          class="form__input"
+          type="text"
+          id="playlist_name"
+          name="playlist_name"
+          required
+        /><br />
+        <label class="form__label" for="playlist_description"
+          >Playlist Description:</label
+        >
+        <input
+          class="form__input"
+          type="text"
+          id="playlist_description"
+          name="playlist_description"
+          required
+        /><br />
+        <label class="form__label" for="song_recommendations"
+          >Song Recommendations (one per line):</label
+        >
+        <textarea
+          class="form__textarea"
+          id="song_recommendations"
+          name="song_recommendations"
+          rows="10"
+          cols="50"
+          disabled
+        ></textarea>
+        <div class="submit-wrapper">
+          <input
+            class="form__submit"
+            type="submit"
+            value="Import To Playlist"
+          />
+          <button class="form__submit__warning" type="reset">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("newPlaylistTab")
+        .addEventListener("click", function () {
+          document.getElementById("newPlaylistContent").style.display = "block";
+          document.getElementById("newPlaylistTab").classList.add("active");
+
+          document
+            .getElementById("importPlaylistTab")
+            .classList.remove("active");
+          document.getElementById("importPlaylistContent").style.display =
+            "none";
+        });
+
+      document
+        .getElementById("importPlaylistTab")
+        .addEventListener("click", function () {
+          document.getElementById("newPlaylistContent").style.display = "none";
+          document.getElementById("newPlaylistTab").classList.remove("active");
+
+          document.getElementById("importPlaylistContent").style.display =
+            "block";
+          document.getElementById("importPlaylistTab").classList.add("active");
+        });
+
+      function switchTab(evt, tabContentId) {
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+          tabContents[i].style.display = "none";
+        }
+
+        const tabs = document.getElementsByClassName("tab");
+        for (let i = 0; i < tabs.length; i++) {
+          tabs[i].className = tabs[i].className.replace(" active", "");
+        }
+
+        document.getElementById(tabContentId).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+
+      // Set default active tab
+      document.getElementById("newPlaylistTab").click();
+    </script>
 
     <script src="/static/scripts/main.js" type="module" defer></script>
   </body>

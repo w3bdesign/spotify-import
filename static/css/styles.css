@@ -6,6 +6,7 @@
   --input-bg-color: #3c3c3c;
   --success-color: #1db954;
   --error-color: #e74c3c;
+  --text-color: #fff;
   --button-primary-color: #1d4ed8;
   --button-primary-hover-color: #3b82f6;
   --border-color: #3c3c3c;
@@ -26,7 +27,7 @@ body {
   font-family: "Arial", sans-serif;
   background-color: var(--main-bg-color);
   padding: 20px;
-  color: #fff;
+  color: var(--text-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,7 +75,7 @@ h2 {
   border-radius: 3px;
   font-size: 14px;
   background-color: var(--border-color);
-  color: #fff;
+  color: var(--text-color);
   margin-bottom: 15px;
 }
 
@@ -94,7 +95,7 @@ h2 {
 
 .form__submit {
   background-color: var(--success-color);
-  color: #fff;
+  color: var(--text-color);
   border: none;
   padding: 10px 20px;
   border-radius: 50px;
@@ -102,12 +103,12 @@ h2 {
   cursor: pointer;
   margin-top: 10px;
   transition: background-color 0.3s;
-  margin-left:10px;
+  margin-left: 10px;
   min-width: 150px;
 }
 
-.form__submit__warning {  
-  color: #fff;
+.form__submit__warning {
+  color: var(--text-color);
   border: none;
   padding: 10px 20px;
   border-radius: 50px;
@@ -115,12 +116,10 @@ h2 {
   cursor: pointer;
   margin-top: 10px;
   transition: background-color 0.3s;
-  margin-left:10px;
+  margin-left: 10px;
   background-color: var(--error-color);
   min-width: 150px;
 }
-
-
 
 .form__submit:hover {
   background-color: var(--form-button-hover-color);
@@ -146,14 +145,14 @@ h2 {
 
 .message--success {
   background-color: var(--success-color);
-  color: #fff;
+  color: var(--text-color);
   padding: 15px;
   margin-bottom: 30px;
 }
 
 .message--error {
   background-color: var(--error-color);
-  color: #fff;
+  color: var(--text-color);
 }
 
 .spotify-connection-message {
@@ -167,12 +166,12 @@ h2 {
 
 .spotify-connection-message--success {
   background-color: var(--success-color);
-  color: #fff;
+  color: var(--text-color);
 }
 
 .spotify-connection-message--error {
   background-color: var(--error-color);
-  color: #fff;
+  color: var(--text-color);
 }
 
 .button__link {
@@ -258,7 +257,7 @@ h2 {
   border: none;
   border-radius: 50%;
   background-color: var(--success-color);
-  color: #ffffff;
+  color: var(--text-color);
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
@@ -291,7 +290,7 @@ h2 {
 .play-button svg {
   width: 12px;
   height: 12px;
-  fill: #ffffff;
+  fill: var(--text-color);
 }
 
 .song-suggestions-table {
@@ -331,7 +330,7 @@ h2 {
 .add-song svg {
   width: 36px;
   height: 36px;
-  fill: #ffffff;
+  fill: var(--text-color);
 }
 
 /* Target the first path element inside a .disabled-button */
@@ -346,4 +345,32 @@ h2 {
 
 .disabled-button path {
   transition: fill 0.3s ease-in-out;
+}
+
+/* Tabbed navigation */
+
+.tabs {
+  overflow: hidden;
+  border-bottom: 1px solid #ccc;
+}
+
+.tab {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  /*transition: 0.4s;*/
+  font-size: 17px;
+  /* border-bottom: 3px solid transparent;*/
+  color: var(--text-color);
+}
+
+.tab:hover {
+  background-color: #292929;
+}
+
+.tab.active {
+  border-bottom: 4px solid var(--success-color);
 }
