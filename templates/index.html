@@ -11,7 +11,7 @@
   <body id="body" class="no-transition">
     {% if client_id and client_secret and redirect_uri %}
     <p class="message message--success">
-      Spotify developer data has been loaded from the .env file.
+      Spotify credential data has been loaded.
     </p>
     {% else %}
     <p class="message message--error">
@@ -23,9 +23,25 @@
     <h1>Generate song recommendations</h1>
     <form class="form" method="post" id="song-form">
       <label class="form__label" for="playlist_name"
-        >Generate song recommendations:</label
+        >Search criteria (example: "Virtual Riot - Energy Drink"):</label
       >
-      <input class="form__input" type="text" id="song_name" name="song_name" />
+      <input
+        class="form__input"
+        type="text"
+        id="song_name"
+        name="song_name"
+        required
+      />
+      <label class="form__label" for="num_suggestions"
+        >Number of suggestions:</label
+      >
+      <select class="form__input" id="num_suggestions" name="num_suggestions">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+      </select>
       <div class="submit-wrapper">
         <input class="form__submit" type="submit" value="Fetch songs" />
       </div>
@@ -61,9 +77,11 @@
         name="song_recommendations"
         rows="10"
         cols="50"
+        disabled
       ></textarea>
-      <div class="submit-wrapper">
+      <div class="submit-wrapper">       
         <input class="form__submit" type="submit" value="Create Playlist" />
+        <button class="form__submit__warning" type="reset">Reset</button>
       </div>
     </form>
 

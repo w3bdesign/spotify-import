@@ -10,13 +10,15 @@ let currentAudio = null;
  * @throws {Error} If unable to fetch suggestions.
  */
 export async function generateSongSuggestions(song) {
-  displaySuggestions(); // Show the loading spinner
+    const numSuggestions = document.getElementById("num_suggestions").value;
 
-  const response = await fetch("/generate_suggestions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ song }),
-  });
+    displaySuggestions(); // Show the loading spinner
+  
+    const response = await fetch("/generate_suggestions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ song, numSuggestions }),
+    });
 
   if (response.ok) {
     const data = await response.json();
@@ -39,12 +41,18 @@ function extractSongSuggestions(messageContent) {
   const lines = messageContent.split("\n");
   const suggestions = lines
     .filter((line) => line.match(/^\d+\./))
-    .map((line) =>
-      line
+    .map((line) => {
+      const suggestion = line
         .substring(line.indexOf(".") + 1)
         .trim()
-        .replace(/\*\*/g, "")
-    );
+        .replace(/\*\*/g, "");
+
+      // Remove the text following the colon
+      const colonIndex = suggestion.indexOf(":");
+      return colonIndex !== -1
+        ? suggestion.substring(0, colonIndex).trim()
+        : suggestion;
+    });
   return suggestions;
 }
 
@@ -151,7 +159,7 @@ function createSuggestionsTable(suggestions) {
  * @param {Array} suggestions - An array of song suggestions to display in the suggestions div.
  * @return {undefined} This function does not return anything.
  */
-function displaySuggestions(suggestions) {
+export function displaySuggestions(suggestions) {
   const suggestionsDiv = document.getElementById("song-suggestions");
   suggestionsDiv.innerHTML = "";
 
