@@ -16,33 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
     });
 
-  // Add event listeners to the "Add to playlist" buttons
-  const addSongButtons = document.querySelectorAll(".add-song");
-  const songRecommendationsTextarea = document.getElementById(
-    "song_recommendations"
-  );
-
-  addSongButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const songName = this.getAttribute("data-songname");
-
-      alert("Song added to playlist: " + songName);
-
-      // Check if the button is not disabled
-      if (!this.hasAttribute("disabled")) {
-        if (songRecommendationsTextarea.value !== "") {
-          songRecommendationsTextarea.value += "\n";
-        }
-        songRecommendationsTextarea.value += songName;
-
-        // Disable the button after the song has been added
-        this.setAttribute("disabled", "disabled");
-        this.classList.add("disabled-button");
-        this.innerText = "Added to playlist";
-      }
-    });
-  });
-
   async function generateSongSuggestions(song) {
     displaySuggestions(); // Show the loading spinner
 
@@ -138,8 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Add the event listener to handle the Add to playlist button click
         addToPlaylistButton.addEventListener("click", function () {
-
-          
           // Check if the button is not disabled
           if (!this.hasAttribute("disabled")) {
             // Disable the button after the song has been added
