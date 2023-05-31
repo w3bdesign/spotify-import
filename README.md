@@ -23,15 +23,14 @@ To set up the project, follow these steps:
    cd spotify-playlist-creator
    ```
 
-   Replace `YOUR_USERNAME` with your actual GitHub username.
+Replace `YOUR_USERNAME` with your actual GitHub username.
 
 
 2. Install the required packages:
 
-   ````
+   ```
    pip install -r requirements.txt
    ```
-
 
 3. Create a `.env` file in the project root directory with the following variables:
 
@@ -41,7 +40,6 @@ To set up the project, follow these steps:
    SPOTIPY_REDIRECT_URI=your_redirect_uri
    SPOTIPY_USER_NAME=your_spotify_username
    ```
-
 
 Replace the placeholders with your actual Spotify developer credentials and desired redirect URI. 
 
