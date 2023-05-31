@@ -23,7 +23,7 @@
     <h1>Generate song recommendations</h1>
     <form class="form" method="post" id="song-form">
       <label class="form__label" for="playlist_name"
-        >Generate song recommendations:</label
+        >Search criteria (example: "Virtual Riot - Energy Drink"):</label
       >
       <input
         class="form__input"
@@ -32,6 +32,16 @@
         name="song_name"
         required
       />
+      <label class="form__label" for="num_suggestions"
+        >Number of suggestions:</label
+      >
+      <select class="form__input" id="num_suggestions" name="num_suggestions">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+      </select>
       <div class="submit-wrapper">
         <input class="form__submit" type="submit" value="Fetch songs" />
       </div>
