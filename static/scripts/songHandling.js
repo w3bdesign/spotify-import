@@ -10,13 +10,15 @@ let currentAudio = null;
  * @throws {Error} If unable to fetch suggestions.
  */
 export async function generateSongSuggestions(song) {
-  displaySuggestions(); // Show the loading spinner
+    const numSuggestions = document.getElementById("num_suggestions").value;
 
-  const response = await fetch("/generate_suggestions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ song }),
-  });
+    displaySuggestions(); // Show the loading spinner
+  
+    const response = await fetch("/generate_suggestions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ song, numSuggestions }),
+    });
 
   if (response.ok) {
     const data = await response.json();
