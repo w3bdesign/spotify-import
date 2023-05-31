@@ -45,7 +45,9 @@ To set up the project, follow these steps:
    ```
    ````
 
-Replace the placeholders with your actual Spotify developer credentials and desired redirect URI. You can obtain your Spotify developer credentials from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
+Replace the placeholders with your actual Spotify developer credentials and desired redirect URI. 
+
+You can obtain your Spotify developer credentials from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
 
 ## Usage
 
