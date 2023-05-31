@@ -1,6 +1,9 @@
 import { generateSongSuggestions } from "./songHandling.js";
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Enable transitions after DOM load
+  document.getElementById("body").classList.remove("no-transition");
+
   document
     .getElementById("song-form")
     .addEventListener("submit", async (event) => {
