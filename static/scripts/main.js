@@ -14,8 +14,23 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("playlist-form")
     .addEventListener("submit", async (event) => {
       event.preventDefault();
-      // Handle the second form submission here
     });
+
+  // Add event listeners to the "Add to playlist" buttons
+  const addSongButtons = document.querySelectorAll(".add-song");
+  const songRecommendationsTextarea = document.getElementById(
+    "song_recommendations"
+  );
+
+  addSongButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const songName = this.getAttribute("data-songname");
+      if (songRecommendationsTextarea.value !== "") {
+        songRecommendationsTextarea.value += "\n";
+      }
+      songRecommendationsTextarea.value += songName;
+    });
+  });
 
   async function generateSongSuggestions(song) {
     displaySuggestions(); // Show the loading spinner
@@ -88,10 +103,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const playButton = document.createElement("button");
         playButton.setAttribute("data-state", "play");
         playButton.innerHTML = `
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path class="play-icon" d="M8 5v14l11-7z"/>
-  <path class="pause-icon" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
-</svg>`;
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path class="play-icon" d="M8 5v14l11-7z"/>
+    <path class="pause-icon" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
+  </svg>`;
         playButton.classList.add("play-button");
 
         // Add the event listener to handle the Play button click
@@ -101,6 +116,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         playButtonCell.appendChild(playButton);
         row.appendChild(playButtonCell);
+
+        // Create the Add to playlist button cell
+        const addToPlaylistCell = document.createElement("td");
+
+        const addToPlaylistButton = document.createElement("button");
+        addToPlaylistButton.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" width="48px" height="48px"><g id="surface1_34_"><path style="fill:#4CAF50;" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"/><path style="fill:#FFFFFF;" d="M21,14h6v20h-6V14z"/><path style="fill:#FFFFFF;" d="M14,21h20v6H14V21z"/></g></svg>`;
+        addToPlaylistButton.classList.add("add-song");
+
+        // Add the event listener to handle the Add to playlist button click
+        addToPlaylistButton.addEventListener("click", () => {
+          const songRecommendationsTextarea = document.getElementById(
+            "song_recommendations"
+          );
+          if (songRecommendationsTextarea.value !== "") {
+            songRecommendationsTextarea.value += "\n";
+          }
+          songRecommendationsTextarea.value += songName;
+        });
+
+        addToPlaylistCell.appendChild(addToPlaylistButton);
+        row.appendChild(addToPlaylistCell);
 
         table.appendChild(row);
       }
