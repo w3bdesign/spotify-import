@@ -25,7 +25,6 @@ To set up the project, follow these steps:
 
    Replace `YOUR_USERNAME` with your actual GitHub username.
 
-   ````
 
 2. Install the required packages:
 
@@ -33,17 +32,16 @@ To set up the project, follow these steps:
    pip install -r requirements.txt
    ```
 
-   ````
 
 3. Create a `.env` file in the project root directory with the following variables:
 
-   ````
+   ```
    SPOTIPY_CLIENT_ID=your_spotify_client_id
    SPOTIPY_CLIENT_SECRET=your_spotify_client_secret
    SPOTIPY_REDIRECT_URI=your_redirect_uri
    SPOTIPY_USER_NAME=your_spotify_username
    ```
-   ````
+
 
 Replace the placeholders with your actual Spotify developer credentials and desired redirect URI. 
 
