@@ -43,9 +43,7 @@ Generate song suggestions based on a seed song.
 :return: A list of song suggestions based on the seed song.
 :rtype: List[str]
 """
-
-
-def generate_song_suggestions(seed_song, num_suggestions=10):
+def generate_song_suggestions(seed_song, num_suggestions=20):
     prompt = f"Based on the song '{seed_song}', please suggest {num_suggestions} similar songs."
 
     response = openai.ChatCompletion.create(
