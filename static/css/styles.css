@@ -1,6 +1,21 @@
+:root {
+  --main-bg-color: #181818;
+  --form-bg-color: #282828;
+  --form-button-color: #1ed760;
+  --form-button-hover-color: #1aa34d;
+  --input-bg-color: #3c3c3c;
+  --success-color: #1db954;
+  --error-color: #e74c3c;
+  --button-primary-color: #1d4ed8;
+  --button-primary-hover-color: #3b82f6;
+  --border-color: #3c3c3c;
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --transition-duration: 0.3s;
+}
+
 body {
   font-family: "Arial", sans-serif;
-  background-color: #181818;
+  background-color: var(--main-bg-color);
   padding: 20px;
   color: #fff;
   display: flex;
@@ -25,7 +40,7 @@ h2 {
 }
 
 .form {
-  background-color: #282828;
+  background-color: var(--form-bg-color);
   padding: 35px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
@@ -46,10 +61,10 @@ h2 {
 .form__textarea {
   width: 100%;
   padding: 7px;
-  border: 1px solid #3c3c3c;
+  border: 1px solid var(--border-color);
   border-radius: 3px;
   font-size: 14px;
-  background-color: #3c3c3c;
+  background-color: var(--border-color);
   color: #fff;
   margin-bottom: 15px;
 }
@@ -69,7 +84,7 @@ h2 {
 }
 
 .form__submit {
-  background-color: #1db954;
+  background-color: var(--success-color);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -81,16 +96,16 @@ h2 {
 }
 
 .form__submit:hover {
-  background-color: #1ed760;
+  background-color: var(--form-button-hover-color);
 }
 
 .form__submit:active {
-  background-color: #1aa34d;
+  background-color: var(--form-button-hover-color);
 }
 
 .form__input:focus,
 .form__textarea:focus {
-  outline-color: #1db954;
+  outline-color: var(--success-color);
 }
 
 .message {
@@ -103,14 +118,14 @@ h2 {
 }
 
 .message--success {
-  background-color: #1db954;
+  background-color: var(--success-color);
   color: #fff;
   padding: 15px;
   margin-bottom: 30px;
 }
 
 .message--error {
-  background-color: #e74c3c;
+  background-color: var(--error-color);
   color: #fff;
 }
 
@@ -124,12 +139,12 @@ h2 {
 }
 
 .spotify-connection-message--success {
-  background-color: #1db954;
+  background-color: var(--success-color);
   color: #fff;
 }
 
 .spotify-connection-message--error {
-  background-color: #e74c3c;
+  background-color: var(--error-color);
   color: #fff;
 }
 
@@ -145,7 +160,7 @@ h2 {
 }
 
 .button:hover {
-  background-color: #3b82f6;
+  background-color: var(--button-primary-hover-color);
 }
 
 .submit-wrapper {
@@ -172,7 +187,7 @@ h2 {
 }
 
 .loading-spinner path {
-  fill: #1db954;
+  fill: var(--success-color);
 }
 
 .loading-spinner path:nth-child(2) {
@@ -182,8 +197,7 @@ h2 {
 #song-suggestions {
   display: flex;
   justify-content: center;
-  align-items: center;
-  /*min-height: 50px; /* Adjust this value according to your needs */
+  align-items: center; 
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
@@ -208,7 +222,7 @@ h2 {
 }
 
 .form-background {
-  background-color: #282828;
+  background-color: var(--form-bg-color);
   padding: 35px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -225,7 +239,7 @@ h2 {
   height: 32px;
   border: none;
   border-radius: 50%;
-  background-color: #1db954;
+  background-color: var(--success-color);
   color: #ffffff;
   font-size: 12px;
   font-weight: 700;
@@ -238,7 +252,7 @@ h2 {
 }
 
 .play-button:hover {
-  background-color: #1ed760;
+  background-color: var(--form-button-hover-color);
 }
 
 .play-button::before {
