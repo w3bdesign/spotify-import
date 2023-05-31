@@ -49,8 +49,8 @@ def generate_song_suggestions(seed_song, num_suggestions=10):
     prompt = f"Based on the song '{seed_song}', please suggest {num_suggestions} similar songs."
 
     response = openai.ChatCompletion.create(
-        #model="gpt-4",
-        model="gpt-3.5-turbo",
+        model="gpt-4",
+        #model="gpt-3.5-turbo",
         messages=[
             {"role": "user", "content": prompt},
         ],
