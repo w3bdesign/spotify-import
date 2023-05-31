@@ -39,12 +39,18 @@ function extractSongSuggestions(messageContent) {
   const lines = messageContent.split("\n");
   const suggestions = lines
     .filter((line) => line.match(/^\d+\./))
-    .map((line) =>
-      line
+    .map((line) => {
+      const suggestion = line
         .substring(line.indexOf(".") + 1)
         .trim()
-        .replace(/\*\*/g, "")
-    );
+        .replace(/\*\*/g, "");
+
+      // Remove the text following the colon
+      const colonIndex = suggestion.indexOf(":");
+      return colonIndex !== -1
+        ? suggestion.substring(0, colonIndex).trim()
+        : suggestion;
+    });
   return suggestions;
 }
 
