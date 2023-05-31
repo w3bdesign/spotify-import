@@ -23,7 +23,7 @@ To set up the project, follow these steps:
    cd spotify-playlist-creator
    ```
 
-   Replace `YOUR_USERNAME` with your actual GitHub username.
+Replace `YOUR_USERNAME` with your actual GitHub username.
 
 
 2. Install the required packages:
