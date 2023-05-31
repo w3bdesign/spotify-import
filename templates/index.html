@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <title>Create Spotify Playlist</title>
+  </head>
+  <body>
+    <h1>Create Spotify Playlist</h1>
+    {% if client_id and client_secret and redirect_uri %}
+    <p class="env-message success">
+      Spotify developer data has been loaded from the .env file.
+    </p>
+    {% else %}
+    <p class="env-message error">
+      Spotify developer data could not be loaded from the .env file. Check your
+      .env file and make sure it contains the correct variables.
+    </p>
+    {% endif %} 
+    {% if connected %}
+    <p class="spotify-connection-message success">
+      Connected to Spotify successfully.
+    </p>
+    {% else %}
+    <p class="spotify-connection-message error">
+      Not connected to Spotify.
+    </p>
+    {% endif %}
+
+    <form method="post">
+      <label for="playlist_name">Playlist Name:</label>
+      <input
+        type="text"
+        id="playlist_name"
+        name="playlist_name"
+        required
+      /><br />
+      <label for="playlist_description">Playlist Description:</label>
+      <input
+        type="text"
+        id="playlist_description"
+        name="playlist_description"
+        required
+      /><br />
+      <label for="song_recommendations"
+        >Song Recommendations (one per line):</label
+      ><br />
+      <textarea
+        id="song_recommendations"
+        name="song_recommendations"
+        rows="10"
+        cols="50"
+        required
+      ></textarea
+      ><br />
+      <input type="submit" value="Create Playlist" />
+    </form>
+  </body>
+</html>
