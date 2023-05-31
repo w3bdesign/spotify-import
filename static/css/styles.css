@@ -320,3 +320,7 @@ h2 {
   fill: #ccc !important;
   cursor: not-allowed;
 }
+
+.disabled-button path {
+  transition: fill 0.3s ease-in-out;
+}
