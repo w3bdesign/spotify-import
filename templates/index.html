@@ -9,8 +9,6 @@
     <title>Create Spotify Playlist</title>
   </head>
   <body>
-   
-
     {% if client_id and client_secret and redirect_uri %}
     <p class="message message--success">
       Spotify developer data has been loaded from the .env file.
@@ -143,18 +141,101 @@
         } else {
           // Display the recommendations
           const list = document.createElement("ul");
-          for (const suggestion of suggestions) {
+          for (const songName of suggestions) {
             const listItem = document.createElement("li");
-            listItem.textContent = suggestion;
             listItem.classList.add("song-suggestion");
+
+            const songNameSpan = document.createElement("span");
+            songNameSpan.textContent = songName;
+            listItem.appendChild(songNameSpan);
+
+            // Create the Play button
+            const playButton = document.createElement("button");
+            // playButton.textContent = "Play";
+            playButton.setAttribute("data-state", "play");
+            playButton.innerHTML = `
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path class="play-icon" d="M8 5v14l11-7z"/>
+    <path class="pause-icon" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
+  </svg>`;
+            playButton.classList.add("play-button");
+
+            // Add the event listener to handle the Play button click
+            playButton.addEventListener("click", () => {
+              playSong(songName, playButton);
+            });
+
+            listItem.appendChild(playButton);
             list.appendChild(listItem);
           }
 
           suggestionsDiv.appendChild(list);
         }
 
-        // Add the .show class to animate the opacity
+        // Add the .show class to animate the opacity and height
         suggestionsDiv.classList.add("show");
+      }
+
+      let currentAudio = null;
+
+      async function fetchSongUrl(songName) {
+        try {
+          const response = await fetch(
+            `/search_song?song_name=${encodeURIComponent(songName)}`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            return data.song_url;
+          } else {
+            console.error(`Error fetching song URL: ${response.statusText}`);
+            return null;
+          }
+        } catch (error) {
+          console.error(`Error fetching song URL: ${error.message}`);
+          return null;
+        }
+      }
+
+      function pauseCurrentAudio() {
+        if (currentAudio) {
+          currentAudio.pause();
+          if (currentAudio.playButton) {
+            //currentAudio.playButton.textContent = "Play";
+            playButton.setAttribute("data-state", "play");
+            playButton.innerHTML = `
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path class="play-icon" d="M8 5v14l11-7z"/>
+    <path class="pause-icon" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
+  </svg>`;
+          }
+        }
+      }
+
+      async function playSong(songName, playButton) {
+        if (currentAudio && currentAudio.songName === songName) {
+          pauseCurrentAudio();
+          currentAudio.playButton = null;
+          currentAudio = null;
+          return;
+        }
+
+        const songUrl = await fetchSongUrl(songName);
+        if (!songUrl) {
+          console.error("Song URL not found");
+          return;
+        }
+
+        pauseCurrentAudio();
+
+        currentAudio = new Audio(songUrl);
+        currentAudio.songName = songName;
+        currentAudio.playButton = playButton;
+        currentAudio.play();
+        //playButton.textContent = "Pause";
+        const playIcon = playButton.querySelector(".play-icon");
+        const pauseIcon = playButton.querySelector(".pause-icon");
+        playIcon.style.display = "none";
+        pauseIcon.style.display = "block";
       }
     </script>
   </body>

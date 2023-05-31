@@ -13,14 +13,14 @@ body {
 h1 {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
 h2 {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -28,9 +28,8 @@ h2 {
   background-color: #282828;
   padding: 35px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  max-width: 600px;
-  min-width: 500px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
+  min-width: 610px;
   margin: 0 auto;
   margin-top: 20px;
 }
@@ -213,8 +212,52 @@ h2 {
   padding: 35px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  max-width: 600px;
-  min-width: 500px;
+  min-width: 610px;
   margin: 0 auto;
   margin-top: 20px;
+}
+
+.play-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background-color: #1db954;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  padding: 0;
+}
+
+.play-button:hover {
+  background-color: #1ed760;
+}
+
+.play-button::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: -100%;
+  transition: left 0.3s;
+}
+
+.play-button:hover::before {
+  left: 100%;
+}
+
+.play-button svg {
+  width: 12px;
+  height: 12px;
+  fill: #ffffff;
 }

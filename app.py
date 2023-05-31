@@ -43,22 +43,50 @@ Generate song suggestions based on a seed song.
 :return: A list of song suggestions based on the seed song.
 :rtype: List[str]
 """
+
+
 def generate_song_suggestions(seed_song, num_suggestions=10):
     prompt = f"Based on the song '{seed_song}', please suggest {num_suggestions} similar songs."
 
     response = openai.ChatCompletion.create(
-    model='gpt-4',
-    messages=[
-        {'role': 'user', 'content': prompt},
-    ]
-)
-    
-    print("response: ", response)
+        model="gpt-4",
+        messages=[
+            {"role": "user", "content": prompt},
+        ],
+    )
 
     return response
 
-    #suggestions = response.choices[0].text.strip().split("\n")
-    #return suggestions[:num_suggestions]
+
+"""
+Route that searches for a song given the song name passed as a query parameter.
+If the song name is not provided, returns a JSON error message with status code 400.
+If the song is found, returns the preview URL of the first matching track as a JSON response.
+If the song is not found, returns a JSON error message with status code 404.
+:return: A JSON response with the preview URL of the song or an error message.
+"""
+@app.route("/search_song", methods=["GET"])
+def search_song():
+    song_name = request.args.get("song_name")
+    sp = spotipy.Spotify(
+        auth_manager=SpotifyOAuth(
+            client_id=client_id,
+            client_secret=client_secret,
+            redirect_uri=redirect_uri,
+            scope="playlist-modify-public",
+            username=username,
+        )
+    )
+    if not song_name:
+        return jsonify({"error": "No song name provided"}), 400
+
+    results = sp.search(q=song_name, type="track", limit=1)
+    if results and results["tracks"]["items"]:
+        track = results["tracks"]["items"][0]
+        song_url = track["preview_url"]
+        return jsonify({"song_url": song_url})
+    else:
+        return jsonify({"error": "Song not found"}), 404
 
 
 """
@@ -67,12 +95,13 @@ Defines a POST endpoint that generates song suggestions based on a given seed so
 Returns:
  A JSON object containing a list of suggested songs based on the seed song.
 """
-@app.route('/generate_suggestions', methods=['POST'])
+@app.route("/generate_suggestions", methods=["POST"])
 def generate_suggestions():
     data = request.get_json()
-    seed_song = data.get('song')
+    seed_song = data.get("song")
     suggestions = generate_song_suggestions(seed_song)
     return jsonify(suggestions)
+
 
 """
 This function is the callback endpoint for the application's OAuth2 authentication flow. 
@@ -90,7 +119,6 @@ def callback():
             session["token_info"] = token_info
             return redirect(url_for("index"))
     return "Error: No code provided or token not obtained."
-
 
 
 @app.route("/", methods=["GET"])
@@ -150,6 +178,7 @@ def create_playlist():
         redirect_uri=redirect_uri,
     )
 
+
 """
 Renders the success.html template with the playlist_name parameter if it exists in the current request arguments.
 """
@@ -157,6 +186,7 @@ Renders the success.html template with the playlist_name parameter if it exists 
 def success():
     playlist_name = request.args.get("playlist_name", "")
     return render_template("success.html", playlist_name=playlist_name)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
