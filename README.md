@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/45217974/242154724-956f96ec-1e65-4b1f-86da-fdcc4845f787.png" alt="Screenshot of project">
+  <img src="https://user-images.githubusercontent.com/45217974/242405165-214da424-eea8-44d6-86b5-4ae71bbe7bc6.png" alt="Screenshot of project">
 </div>
 
 # Spotify Playlist Creator
