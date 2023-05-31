@@ -50,4 +50,6 @@ To run the application, execute the following command:
 python app.py
 ```
 
-The application will start running on `http://127.0.0.1:5000/`. Open this URL in your web browser to access the Spotify Playlist Creator.
+The application will start running on `http://127.0.0.1:5000/`. 
+
+Open this URL in your web browser to access the Spotify Playlist Creator.
