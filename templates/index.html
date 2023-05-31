@@ -9,7 +9,8 @@
     <title>Create Spotify Playlist</title>
   </head>
   <body>
-    <h1>Create Spotify Playlist</h1>
+   
+
     {% if client_id and client_secret and redirect_uri %}
     <p class="message message--success">
       Spotify developer data has been loaded from the .env file.
@@ -21,7 +22,20 @@
     </p>
     {% endif %}
 
-    <form class="form" method="post">
+    <h1>Generate song recommendations</h1>
+    <form class="form" method="post" id="song-form">
+      <label class="form__label" for="playlist_name"
+        >Generate song recommendations:</label
+      >
+      <input class="form__input" type="text" id="song_name" name="song_name" />
+      <div class="submit-wrapper">
+        <input class="form__submit" type="submit" value="Fetch songs" />
+      </div>
+    </form>
+    <br />
+    <div class="form-background" id="song-suggestions"></div>
+    <h1>Create Spotify Playlist</h1>
+    <form class="form" method="post" id="playlist-form">
       <label class="form__label" for="playlist_name">Playlist Name:</label>
       <input
         class="form__input"
@@ -49,11 +63,99 @@
         name="song_recommendations"
         rows="10"
         cols="50"
-        required
       ></textarea>
       <div class="submit-wrapper">
         <input class="form__submit" type="submit" value="Create Playlist" />
       </div>
     </form>
+
+    <script>
+      document
+        .getElementById("song-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const songInput = document.getElementById("song_name");
+          const song = songInput.value;
+          const suggestions = await generateSongSuggestions(song);
+          displaySuggestions(suggestions);
+        });
+
+      // Event listener for the second form
+      document
+        .getElementById("playlist-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          // Handle the second form submission here
+        });
+
+      async function generateSongSuggestions(song) {
+        displaySuggestions(); // Show the loading spinner
+
+        const response = await fetch("/generate_suggestions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ song }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const messageContent = data.choices[0].message.content;
+          const suggestions = extractSongSuggestions(messageContent);
+          displaySuggestions(suggestions); // Hide the loading spinner and display the suggestions
+          return suggestions;
+        } else {
+          throw new Error("Failed to fetch suggestions.");
+        }
+      }
+
+      function createLoadingSpinner() {
+        const spinner = document.createElement("div");
+        spinner.classList.add("loading-spinner");
+        spinner.innerHTML = `
+    <svg viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"/>
+      <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"/>
+    </svg>`;
+        return spinner;
+      }
+
+      function extractSongSuggestions(messageContent) {
+        const lines = messageContent.split("\n");
+        const suggestions = lines
+          .filter((line) => line.match(/^\d+\./))
+          .map((line) =>
+            line
+              .substring(line.indexOf(".") + 1)
+              .trim()
+              .replace(/\*\*/g, "")
+          );
+        return suggestions;
+      }
+
+      function displaySuggestions(suggestions) {
+        const suggestionsDiv = document.getElementById("song-suggestions");
+        suggestionsDiv.innerHTML = "";
+
+        if (!suggestions) {
+          // Show the loading spinner
+          const spinner = createLoadingSpinner();
+          suggestionsDiv.appendChild(spinner);
+        } else {
+          // Display the recommendations
+          const list = document.createElement("ul");
+          for (const suggestion of suggestions) {
+            const listItem = document.createElement("li");
+            listItem.textContent = suggestion;
+            listItem.classList.add("song-suggestion");
+            list.appendChild(listItem);
+          }
+
+          suggestionsDiv.appendChild(list);
+        }
+
+        // Add the .show class to animate the opacity
+        suggestionsDiv.classList.add("show");
+      }
+    </script>
   </body>
 </html>
