@@ -1,11 +1,11 @@
-import { generateSongSuggestions } from "./songHandling.js";
+import { displaySuggestions, generateSongSuggestions } from "./songHandling.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Enable transitions after DOM load
 
-  setTimeOut(() => {
-    document.getElementById("body").classList.remove("no-transition"), 1000;
-  });
+  setTimeout(() => {
+    document.getElementById("body").classList.remove("no-transition");
+  }, "1000");
 
   document
     .getElementById("song-form")

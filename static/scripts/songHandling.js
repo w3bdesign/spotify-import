@@ -151,7 +151,7 @@ function createSuggestionsTable(suggestions) {
  * @param {Array} suggestions - An array of song suggestions to display in the suggestions div.
  * @return {undefined} This function does not return anything.
  */
-function displaySuggestions(suggestions) {
+export function displaySuggestions(suggestions) {
   const suggestionsDiv = document.getElementById("song-suggestions");
   suggestionsDiv.innerHTML = "";
 
