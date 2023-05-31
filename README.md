@@ -28,7 +28,7 @@ Replace `YOUR_USERNAME` with your actual GitHub username.
 
 2. Install the required packages:
 
-   ````
+   ```
    pip install -r requirements.txt
    ```
 
