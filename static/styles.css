@@ -261,3 +261,18 @@ h2 {
   height: 12px;
   fill: #ffffff;
 }
+
+.song-suggestions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.song-suggestions-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.song-suggestions-table tr:hover {
+  background-color: #181818;
+}

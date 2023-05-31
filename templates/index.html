@@ -139,25 +139,28 @@
           const spinner = createLoadingSpinner();
           suggestionsDiv.appendChild(spinner);
         } else {
-          // Display the recommendations
-          const list = document.createElement("ul");
+          // Create a table to display the recommendations
+          const table = document.createElement("table");
+          table.classList.add("song-suggestions-table");
+
           for (const songName of suggestions) {
-            const listItem = document.createElement("li");
-            listItem.classList.add("song-suggestion");
+            const row = document.createElement("tr");
+            row.classList.add("song-suggestion");
 
-            const songNameSpan = document.createElement("span");
-            songNameSpan.textContent = songName;
-            listItem.appendChild(songNameSpan);
+            const songNameCell = document.createElement("td");
+            songNameCell.textContent = songName;
+            row.appendChild(songNameCell);
 
-            // Create the Play button
+            // Create the Play button cell
+            const playButtonCell = document.createElement("td");
+
             const playButton = document.createElement("button");
-            // playButton.textContent = "Play";
             playButton.setAttribute("data-state", "play");
             playButton.innerHTML = `
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path class="play-icon" d="M8 5v14l11-7z"/>
-    <path class="pause-icon" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
-  </svg>`;
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path class="play-icon" d="M8 5v14l11-7z"/>
+  <path class="pause-icon" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
+</svg>`;
             playButton.classList.add("play-button");
 
             // Add the event listener to handle the Play button click
@@ -165,11 +168,13 @@
               playSong(songName, playButton);
             });
 
-            listItem.appendChild(playButton);
-            list.appendChild(listItem);
+            playButtonCell.appendChild(playButton);
+            row.appendChild(playButtonCell);
+
+            table.appendChild(row);
           }
 
-          suggestionsDiv.appendChild(list);
+          suggestionsDiv.appendChild(table);
         }
 
         // Add the .show class to animate the opacity and height
@@ -231,7 +236,7 @@
         currentAudio.songName = songName;
         currentAudio.playButton = playButton;
         currentAudio.play();
-        //playButton.textContent = "Pause";
+
         const playIcon = playButton.querySelector(".play-icon");
         const pauseIcon = playButton.querySelector(".pause-icon");
         playIcon.style.display = "none";
