@@ -316,9 +316,13 @@ h2 {
 }
 
 /* Target the first path element inside a .disabled-button */
+
+.disabled-button {
+  cursor: not-allowed;
+}
+
 .disabled-button path:first-child {
   fill: #ccc !important;
-  cursor: not-allowed;
 }
 
 .disabled-button path {
