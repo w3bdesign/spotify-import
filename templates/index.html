@@ -4,12 +4,11 @@
     <meta charset="utf-8" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
+      href="{{ url_for('static', filename='/css/styles.css') }}"
     />
     <title>Create Spotify Playlist</title>
   </head>
   <body>
-    <h1>Create Spotify Playlist</h1>
     {% if client_id and client_secret and redirect_uri %}
     <p class="message message--success">
       Spotify developer data has been loaded from the .env file.
@@ -21,7 +20,20 @@
     </p>
     {% endif %}
 
-    <form class="form" method="post">
+    <h1>Generate song recommendations</h1>
+    <form class="form" method="post" id="song-form">
+      <label class="form__label" for="playlist_name"
+        >Generate song recommendations:</label
+      >
+      <input class="form__input" type="text" id="song_name" name="song_name" />
+      <div class="submit-wrapper">
+        <input class="form__submit" type="submit" value="Fetch songs" />
+      </div>
+    </form>
+    <br />
+    <div class="form-background" id="song-suggestions"></div>
+    <h1>Create Spotify Playlist</h1>
+    <form class="form" method="post" id="playlist-form">
       <label class="form__label" for="playlist_name">Playlist Name:</label>
       <input
         class="form__input"
@@ -49,11 +61,12 @@
         name="song_recommendations"
         rows="10"
         cols="50"
-        required
       ></textarea>
       <div class="submit-wrapper">
         <input class="form__submit" type="submit" value="Create Playlist" />
       </div>
     </form>
+
+    <script src="/static/scripts/main.js" defer></script>
   </body>
 </html>
