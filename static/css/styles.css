@@ -1,6 +1,30 @@
+:root {
+  --main-bg-color: #181818;
+  --form-bg-color: #282828;
+  --form-button-color: #1ed760;
+  --form-button-hover-color: #1aa34d;
+  --input-bg-color: #3c3c3c;
+  --success-color: #1db954;
+  --error-color: #e74c3c;
+  --button-primary-color: #1d4ed8;
+  --button-primary-hover-color: #3b82f6;
+  --border-color: #3c3c3c;
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --transition-duration: 0.3s;
+  --container-width: 775px;
+}
+
+.no-transition * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
 body {
   font-family: "Arial", sans-serif;
-  background-color: #181818;
+  background-color: var(--main-bg-color);
   padding: 20px;
   color: #fff;
   display: flex;
@@ -25,11 +49,11 @@ h2 {
 }
 
 .form {
-  background-color: #282828;
+  background-color: var(--form-bg-color);
   padding: 35px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
-  min-width: 610px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  min-width: var(--container-width);
   margin: 0 auto;
   margin-top: 20px;
 }
@@ -46,10 +70,10 @@ h2 {
 .form__textarea {
   width: 100%;
   padding: 7px;
-  border: 1px solid #3c3c3c;
+  border: 1px solid var(--border-color);
   border-radius: 3px;
   font-size: 14px;
-  background-color: #3c3c3c;
+  background-color: var(--border-color);
   color: #fff;
   margin-bottom: 15px;
 }
@@ -69,7 +93,7 @@ h2 {
 }
 
 .form__submit {
-  background-color: #1db954;
+  background-color: var(--success-color);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -81,21 +105,21 @@ h2 {
 }
 
 .form__submit:hover {
-  background-color: #1ed760;
+  background-color: var(--form-button-hover-color);
 }
 
 .form__submit:active {
-  background-color: #1aa34d;
+  background-color: var(--form-button-hover-color);
 }
 
 .form__input:focus,
 .form__textarea:focus {
-  outline-color: #1db954;
+  outline-color: var(--success-color);
 }
 
 .message {
   font-size: 1.1rem;
-  max-width: 600px;
+  max-width: var(--container-width);
   margin: 0 auto 20px auto;
   padding: 10px;
   text-align: center;
@@ -103,20 +127,20 @@ h2 {
 }
 
 .message--success {
-  background-color: #1db954;
+  background-color: var(--success-color);
   color: #fff;
   padding: 15px;
   margin-bottom: 30px;
 }
 
 .message--error {
-  background-color: #e74c3c;
+  background-color: var(--error-color);
   color: #fff;
 }
 
 .spotify-connection-message {
   font-size: 1.1rem;
-  max-width: 600px;
+  max-width: var(--container-width);
   margin: 0 auto 30px auto;
   padding: 10px;
   text-align: center;
@@ -124,28 +148,21 @@ h2 {
 }
 
 .spotify-connection-message--success {
-  background-color: #1db954;
+  background-color: var(--success-color);
   color: #fff;
 }
 
 .spotify-connection-message--error {
-  background-color: #e74c3c;
+  background-color: var(--error-color);
   color: #fff;
 }
 
-.button {
-  display: inline-block;
-  padding: 20px;
-  background-color: #1d4ed8;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+.button__link {
   margin-top: 20px;
-  transition: background-color 0.4s ease;
 }
 
 .button:hover {
-  background-color: #3b82f6;
+  background-color: var(--button-primary-hover-color);
 }
 
 .submit-wrapper {
@@ -172,7 +189,7 @@ h2 {
 }
 
 .loading-spinner path {
-  fill: #1db954;
+  fill: var(--success-color);
 }
 
 .loading-spinner path:nth-child(2) {
@@ -183,19 +200,16 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  /*min-height: 50px; /* Adjust this value according to your needs */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
   height: 0;
- 
 }
 
 #song-suggestions.show {
   opacity: 1;
   visibility: visible;
   height: 100%;
-  
 }
 
 @keyframes fadeIn {
@@ -208,11 +222,11 @@ h2 {
 }
 
 .form-background {
-  background-color: #282828;
+  background-color: var(--form-bg-color);
   padding: 35px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  min-width: 610px;
+  min-width: var(--container-width);
   margin: 0 auto;
   margin-top: 20px;
 }
@@ -225,7 +239,7 @@ h2 {
   height: 32px;
   border: none;
   border-radius: 50%;
-  background-color: #1db954;
+  background-color: var(--success-color);
   color: #ffffff;
   font-size: 12px;
   font-weight: 700;
@@ -238,7 +252,7 @@ h2 {
 }
 
 .play-button:hover {
-  background-color: #1ed760;
+  background-color: var(--form-button-hover-color);
 }
 
 .play-button::before {
@@ -275,4 +289,43 @@ h2 {
 
 .song-suggestions-table tr:hover {
   background-color: #181818;
+}
+
+.add-song {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  width: 36px;
+  height: 36px;
+}
+
+.add-song::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: -100%;
+  transition: left 0.3s;
+}
+
+.add-song svg {
+  width: 36px;
+  height: 36px;
+  fill: #ffffff;
+}
+
+/* Target the first path element inside a .disabled-button */
+
+.disabled-button {
+  cursor: not-allowed;
+}
+
+.disabled-button path:first-child {
+  fill: #ccc !important;
+}
+
+.disabled-button path {
+  transition: fill 0.3s ease-in-out;
 }

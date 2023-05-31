@@ -8,7 +8,7 @@
     />
     <title>Create Spotify Playlist</title>
   </head>
-  <body>
+  <body id="body" class="no-transition">
     {% if client_id and client_secret and redirect_uri %}
     <p class="message message--success">
       Spotify developer data has been loaded from the .env file.
@@ -67,6 +67,6 @@
       </div>
     </form>
 
-    <script src="/static/scripts/main.js" defer></script>
+    <script src="/static/scripts/main.js" type="module" defer></script>
   </body>
 </html>
