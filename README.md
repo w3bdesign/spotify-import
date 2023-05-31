@@ -32,7 +32,6 @@ Replace `YOUR_USERNAME` with your actual GitHub username.
    pip install -r requirements.txt
    ```
 
-
 3. Create a `.env` file in the project root directory with the following variables:
 
    ```
@@ -41,7 +40,6 @@ Replace `YOUR_USERNAME` with your actual GitHub username.
    SPOTIPY_REDIRECT_URI=your_redirect_uri
    SPOTIPY_USER_NAME=your_spotify_username
    ```
-
 
 Replace the placeholders with your actual Spotify developer credentials and desired redirect URI. 
 
