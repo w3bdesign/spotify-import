@@ -25,11 +25,15 @@ To set up the project, follow these steps:
 
    Replace `YOUR_USERNAME` with your actual GitHub username.
 
+   ````
+
 2. Install the required packages:
 
    ````
    pip install -r requirements.txt
    ```
+
+   ````
 
 3. Create a `.env` file in the project root directory with the following variables:
 
@@ -39,6 +43,7 @@ To set up the project, follow these steps:
    SPOTIPY_REDIRECT_URI=your_redirect_uri
    SPOTIPY_USER_NAME=your_spotify_username
    ```
+   ````
 
 Replace the placeholders with your actual Spotify developer credentials and desired redirect URI. You can obtain your Spotify developer credentials from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
 
@@ -50,6 +55,6 @@ To run the application, execute the following command:
 python app.py
 ```
 
-The application will start running on `http://127.0.0.1:5000/`. 
+The application will start running on `http://127.0.0.1:5000/`.
 
 Open this URL in your web browser to access the Spotify Playlist Creator.
