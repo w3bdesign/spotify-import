@@ -14,6 +14,41 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("playlist-form")
     .addEventListener("submit", async (event) => {
       event.preventDefault();
+
+      const playlistName = document.getElementById("playlist_name").value;
+      const playlistDescription = document.getElementById(
+        "playlist_description"
+      ).value;
+      const songRecommendations = document.getElementById(
+        "song_recommendations"
+      ).value;
+
+      const formData = new FormData();
+      formData.append("playlist_name", playlistName);
+      formData.append("playlist_description", playlistDescription);
+      formData.append("song_recommendations", songRecommendations);
+
+      try {
+        const response = await fetch("/generate_playlist", {
+          method: "POST",
+          body: formData,
+        });
+
+
+
+        if (response.status === 200) {
+          //const data = await response.json();
+
+          window.location.href = response.url;
+        } else {
+          // Handle error case
+          //alert("Error creating playlist");
+          alert(response.status);
+        }
+      } catch (error) {
+        // Handle network error
+        console.error("Network error:", error);
+      }
     });
 
   async function generateSongSuggestions(song) {

@@ -4,12 +4,17 @@
     <meta charset="utf-8" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
+      href="{{ url_for('static', filename='/css/styles.css') }}"
     />
     <title>Playlist created</title>
   </head>
   <body>
     <h1>Playlist '{{ playlist_name }}' created successfully!</h1>
-    <a class="button" href="/">Create another playlist</a>
+    <a href="/" class="button__link">
+    <button class="form__submit">
+      Create another playlist
+    </button>
+  </a>
+  </a>
   </body>
 </html>
