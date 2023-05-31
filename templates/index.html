@@ -9,6 +9,7 @@
     <title>Create Spotify Playlist</title>
   </head>
   <body>
+
     <h1>Create Spotify Playlist</h1>
     {% if client_id and client_secret and redirect_uri %}
     <p class="env-message success">
@@ -20,15 +21,6 @@
       .env file and make sure it contains the correct variables.
     </p>
     {% endif %} 
-    {% if connected %}
-    <p class="spotify-connection-message success">
-      Connected to Spotify successfully.
-    </p>
-    {% else %}
-    <p class="spotify-connection-message error">
-      Not connected to Spotify.
-    </p>
-    {% endif %}
 
     <form method="post">
       <label for="playlist_name">Playlist Name:</label>
@@ -56,7 +48,7 @@
         required
       ></textarea
       ><br />
-      <input type="submit" value="Create Playlist" />
+      <div class="div__submit"><input type="submit" value="Create Playlist" /></div>
     </form>
   </body>
 </html>

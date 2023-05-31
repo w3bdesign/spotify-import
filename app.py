@@ -20,25 +20,24 @@ sp_oauth = SpotifyOAuth(
     client_id=client_id,
     client_secret=client_secret,
     redirect_uri=redirect_uri,
-    scope='playlist-modify-public',
-    username=username
+    scope="playlist-modify-public",
+    username=username,
 )
 
-@app.route('/callback')
+
+@app.route("/callback")
 def callback():
-    code = request.args.get('code')
+    code = request.args.get("code")
     if code:
         token_info = sp_oauth.get_access_token(code, as_dict=False)
         if token_info:
-            session['token_info'] = token_info
-            return redirect(url_for('index'))
+            session["token_info"] = token_info
+            return redirect(url_for("index"))
     return "Error: No code provided or token not obtained."
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Boolean to check if the user can connect to Spotify
-    connected = False
-
     if request.method == "POST":
         playlist_name = request.form["playlist_name"]
         playlist_description = request.form["playlist_description"]
@@ -52,15 +51,7 @@ def index():
                 scope="playlist-modify-public",
                 username=username,
             )
-        )       
-
-        try:
-            user_profile = sp.me()
-            print("User er:", user_profile)
-            connected = True
-        except:
-            print("Exception")
-            pass
+        )
 
         playlist = sp.user_playlist_create(
             user=username, name=playlist_name, description=playlist_description
@@ -78,21 +69,17 @@ def index():
 
         return redirect(url_for("success", playlist_name=playlist_name))
 
-    # return render_template("index.html")
     return render_template(
         "index.html",
         client_id=client_id,
         client_secret=client_secret,
         redirect_uri=redirect_uri,
-        connected=connected,
     )
-
 
 @app.route("/success")
 def success():
     playlist_name = request.args.get("playlist_name", "")
-    return f"Playlist '{playlist_name}' created successfully!"
-
+    return render_template("success.html", playlist_name=playlist_name)
 
 if __name__ == "__main__":
     app.run(debug=True)
