@@ -351,7 +351,12 @@ h2 {
 
 .tabs {
   overflow: hidden;
-  border-bottom: 1px solid #ccc;
+
+  position: relative;
+}
+
+.tab-wrapper {
+  display: inline-flex;
 }
 
 .tab {
@@ -361,9 +366,7 @@ h2 {
   outline: none;
   cursor: pointer;
   padding: 12px 14px;
-  /*transition: 0.4s;*/
   font-size: 17px;
-  /* border-bottom: 3px solid transparent;*/
   color: var(--text-color);
 }
 
@@ -371,6 +374,10 @@ h2 {
   background-color: #292929;
 }
 
-.tab.active {
-  border-bottom: 4px solid var(--success-color);
+.border-bottom {
+  bottom: 0;
+  position: absolute;
+  height: 4px;
+  background-color: var(--success-color);
+  transition: left 0.4s, width 0.4s; /* Add transition for smooth animation */
 }

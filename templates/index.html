@@ -91,10 +91,13 @@
     <!-- Tabbed navigation -->
 
     <div class="tabs">
-      <button class="tab" id="newPlaylistTab">New Playlist</button>
-      <button class="tab" id="importPlaylistTab">
-        Import to Existing Playlist
-      </button>
+      <div class="tab-wrapper"> <!-- Add this line -->
+        <button class="tab" id="newPlaylistTab">New Playlist</button>
+        <button class="tab" id="importPlaylistTab">
+          Import to Existing Playlist
+        </button>
+        <div class="border-bottom"></div>
+      </div> <!-- Add this line -->
     </div>
     <div class="tab-content" id="newPlaylistContent">
       <br />&nbsp;
@@ -221,6 +224,33 @@
 
       // Set default active tab
       document.getElementById("newPlaylistTab").click();
+
+      // Tab animation
+
+      function updateBorderPosition() {
+        const activeTab = document.querySelector(".tab.active");
+        const borderBottom = document.querySelector(".border-bottom");
+
+        if (activeTab) {
+          const tabRect = activeTab.getBoundingClientRect();
+          const tabsRect = borderBottom.parentElement.getBoundingClientRect();
+
+          borderBottom.style.left = `${tabRect.left - tabsRect.left}px`;
+          borderBottom.style.width = `${tabRect.width}px`;
+        }
+      }
+
+      document.querySelectorAll(".tab").forEach((tab) =>
+        tab.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab")
+            .forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          updateBorderPosition();
+        })
+      );
+
+      window.addEventListener("load", updateBorderPosition);
     </script>
 
     <script src="/static/scripts/main.js" type="module" defer></script>
