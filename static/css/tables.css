@@ -19,7 +19,7 @@
   align-items: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
   padding: 0;
   margin-top: 0;
 }
@@ -28,7 +28,7 @@
   opacity: 1;
   visibility: visible;
   padding: 35px;
-  margin-top: 25px;
+  margin-top: 30px;
 }
 
 .add-song {
@@ -54,18 +54,4 @@
   width: 36px;
   height: 36px;
   fill: #ffffff;
-}
-
-/* Target the first path element inside a .disabled-button */
-
-.disabled-button {
-  cursor: not-allowed;
-}
-
-.disabled-button path:first-child {
-  fill: #ccc !important;
-}
-
-.disabled-button path {
-  transition: fill 0.3s ease-in-out;
 }

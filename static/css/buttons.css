@@ -97,3 +97,17 @@
   height: 12px;
   fill: #ffffff;
 }
+
+/* Target the first path element inside a .disabled-button */
+
+.disabled-button {
+  cursor: not-allowed;
+}
+
+.disabled-button path:first-child {
+  fill: #ccc !important;
+}
+
+.disabled-button path {
+  transition: fill 0.3s ease-in-out;
+}
