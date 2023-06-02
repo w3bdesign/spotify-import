@@ -8,6 +8,9 @@ from spotipy.oauth2 import SpotifyOAuth
 import os
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.urandom(64)
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_FILE_DIR'] = './.flask_session/'
 
 load_dotenv()
 
