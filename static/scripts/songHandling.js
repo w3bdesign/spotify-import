@@ -116,10 +116,17 @@ function createAddToPlaylistButton(songName) {
     const songRecommendationsTextarea = document.getElementById(
       "song_recommendations"
     );
+
+    const songRecommendationsTextareaExisting = document.getElementById(
+      "song_recommendations_existing"
+    );
+
     if (songRecommendationsTextarea.value !== "") {
       songRecommendationsTextarea.value += "\n";
+      songRecommendationsTextareaExisting.value += "\n";
     }
     songRecommendationsTextarea.value += songName;
+    songRecommendationsTextareaExisting.value += songName;
   });
 
   return addToPlaylistButton;
@@ -185,8 +192,6 @@ export function displaySuggestions(suggestions) {
   }
 
   suggestionsDiv.classList.add("show");
-
- 
 }
 
 /**
