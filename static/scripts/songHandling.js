@@ -3,6 +3,20 @@ import { createLoadingSpinner } from "./utils.js";
 let currentAudio = null;
 
 /**
+ * Handles the submission of the song form.
+ *
+ * @param {Event} event - The event object for the submit event.
+ * @return {Promise<void>} A promise that resolves when the song suggestions have been displayed.
+ */
+export async function handleSongFormSubmit(event) {
+  event.preventDefault();
+  const songInput = document.getElementById("song_name");
+  const song = songInput.value;
+  const suggestions = await generateSongSuggestions(song);
+  displaySuggestions(suggestions);
+}
+
+/**
  * Asynchronously generates song suggestions based on a given song.
  *
  * @param {string} song - The name of the song to generate suggestions for.
@@ -10,15 +24,15 @@ let currentAudio = null;
  * @throws {Error} If unable to fetch suggestions.
  */
 export async function generateSongSuggestions(song) {
-    const numSuggestions = document.getElementById("num_suggestions").value;
+  const numSuggestions = document.getElementById("num_suggestions").value;
 
-    displaySuggestions(); // Show the loading spinner
-  
-    const response = await fetch("/generate_suggestions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ song, numSuggestions }),
-    });
+  displaySuggestions(); // Show the loading spinner
+
+  const response = await fetch("/generate_suggestions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ song, numSuggestions }),
+  });
 
   if (response.ok) {
     const data = await response.json();

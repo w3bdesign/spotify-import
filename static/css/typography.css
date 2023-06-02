@@ -25,3 +25,8 @@ h2 {
   text-align: center;
   margin-top: 1rem;
 }
+
+.song-suggestion {
+	font-weight: bold;
+	font-size: 1.2em;
+}

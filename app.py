@@ -48,7 +48,7 @@ Available models: ['gpt-4', 'gpt-3.5-turbo', 'gpt-4-poe', 'gpt-3.5-turbo-poe', '
 
 
 def generate_song_suggestions(seed_song, num_suggestions=20):
-    prompt = f"Based on the song '{seed_song}', please suggest {num_suggestions} similar songs."
+    prompt = f"Based on the song '{seed_song}', please suggest {num_suggestions} similar songs. I do not want any links, Youtube videos or other data. Just the artist name and song name."
 
     response = openai.ChatCompletion.create(
         model="gpt-4",

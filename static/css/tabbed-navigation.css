@@ -10,6 +10,11 @@
   display: inline-flex;
 }
 
+.tab--active .border-bottom {
+  width: 100%;
+  left: 0;
+}
+
 .tab {
   background-color: inherit;
   float: left;
@@ -30,5 +35,5 @@
   position: absolute;
   height: 4px;
   background-color: var(--success-color);
-  transition: left 0.4s, width 0.4s; /* Add transition for smooth animation */
+  transition: left 0.4s, width 0.4s;
 }
