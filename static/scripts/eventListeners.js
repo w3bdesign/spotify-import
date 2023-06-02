@@ -1,5 +1,5 @@
 import { handleSongFormSubmit } from "./songHandling.js";
-import { handlePlaylistFormSubmit } from "./playlistHandling.js";
+import { handleNewPlaylistFormSubmit, handleImportPlaylistFormSubmit } from "./playlistHandling.js";
 
 /**
  * Adds event listeners for the song form, playlist form, and new/import playlist tabs.
@@ -15,7 +15,26 @@ export function addEventListeners() {
   // Add event listener for playlist form
   document
     .getElementById("playlist-form")
-    .addEventListener("submit", handlePlaylistFormSubmit);
+    .addEventListener("submit", handleNewPlaylistFormSubmit);
+
+
+    document
+    .getElementById("playlist-form-existing")
+    .addEventListener("submit", handleImportPlaylistFormSubmit);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   document
     .getElementById("newPlaylistTab")
@@ -36,4 +55,25 @@ export function addEventListeners() {
       document.getElementById("importPlaylistContent").style.display = "block";
       document.getElementById("importPlaylistTab").classList.add("active");
     });
+
+
+
+
+
+
+  const importPlaylistForm = document.getElementById("playlist-form");
+
+  importPlaylistForm.addEventListener("submit", function (event) {
+    const selectedPlaylistId = document.querySelector(
+      'select[name="playlist_overview"]'
+    ).value;
+    const hiddenPlaylistIdInput = document.createElement("input");
+    hiddenPlaylistIdInput.type = "hidden";
+    hiddenPlaylistIdInput.name = "selected_playlist_id";
+    hiddenPlaylistIdInput.value = selectedPlaylistId;
+
+    importPlaylistForm.appendChild(hiddenPlaylistIdInput);
+  });
+
+
 }

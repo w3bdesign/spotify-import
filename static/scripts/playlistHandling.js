@@ -4,7 +4,8 @@
  * @param {Event} event - The event object representing the form submission.
  * @return {Promise<void>} - A Promise that resolves when the playlist is generated.
  */
-export async function handlePlaylistFormSubmit(event) {
+export async function handleNewPlaylistFormSubmit(event) {
+  alert("Submit");
   event.preventDefault();
 
   const playlistName = document.getElementById("playlist_name").value;
@@ -22,6 +23,48 @@ export async function handlePlaylistFormSubmit(event) {
 
   try {
     const response = await fetch("/generate_playlist", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.status === 200) {
+      window.location.href = response.url;
+    } else {
+      alert(response.status);
+    }
+  } catch (error) {
+    // Handle network error
+    console.error("Network error:", error);
+  }
+}
+
+/**
+ * Handles the submission of import of a playlist form. Takes an event object as an argument.
+ *
+ * @param {Event} event - The event object representing the form submission.
+ * @return {Promise<void>} - A Promise that resolves when the playlist is generated.
+ */
+export async function handleImportPlaylistFormSubmit(event) {
+  event.preventDefault();
+
+  const selectElement = document.getElementById("select");
+  const selectedValue = selectElement.value;
+
+  const playlistName = selectedValue;
+  const playlistDescription = document.getElementById(
+    "playlist_description"
+  ).value;
+  const songRecommendations = document.getElementById(
+    "song_recommendations"
+  ).value;
+
+  const formData = new FormData();
+  formData.append("playlist_name", playlistName);
+  formData.append("playlist_description", playlistDescription);
+  formData.append("song_recommendations", songRecommendations);
+
+  try {
+    const response = await fetch("/import_to_existing_playlist", {
       method: "POST",
       body: formData,
     });

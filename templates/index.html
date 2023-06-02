@@ -62,7 +62,12 @@
     <div class="tab-content" id="newPlaylistContent">
       <br />&nbsp;
       <h2>New Playlist</h2>
-      <form class="form" method="post" id="playlist-form">
+      <form
+        class="form"
+        id="playlist-form"
+        method="POST"
+        action="/generate_playlist"
+      >
         <label class="form__label" for="playlist_name">Playlist Name:</label>
         <input
           class="form__input"
@@ -101,26 +106,12 @@
     <div class="tab-content" id="importPlaylistContent" style="display: none">
       <br />&nbsp;
       <h2>Import to Existing Playlist</h2>
-      <form class="form" method="post" id="playlist-form">
-        <label class="form__label" for="playlist_name">Playlist Name:</label>
-        <input
-          class="form__input"
-          type="text"
-          id="playlist_name"
-          name="playlist_name"
-          required
-        /><br />
-        <label class="form__label" for="playlist_description"
-          >Playlist Description:</label
-        >
-        <input
-          class="form__input"
-          type="text"
-          id="playlist_description"
-          name="playlist_description"
-          required
-        /><br />
-
+      <form
+        class="form"
+        method="POST"
+        id="playlist-form-existing"
+        method="/import_to_existing_playlist"
+      >
         <label class="form__label" for="playlist_description"
           >Playlist Overview:</label
         >

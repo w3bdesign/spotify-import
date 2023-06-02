@@ -77,7 +77,7 @@ def search_song():
         auth_manager=SpotifyOAuth(
             client_id=client_id,
             client_secret=client_secret,
-            redirect_uri=redirect_uri,         
+            redirect_uri=redirect_uri,
             scope="playlist-modify-public",
             username=username,
         )
@@ -185,7 +185,7 @@ def create_playlist():
                 client_id=client_id,
                 client_secret=client_secret,
                 redirect_uri=redirect_uri,
-                scope="playlist-modify-public",
+                scope="playlist-modify-public playlist-modify-private",
                 username=username,
             )
         )
@@ -204,6 +204,61 @@ def create_playlist():
         if track_ids:
             sp.playlist_add_items(playlist_id=playlist["id"], items=track_ids)
 
+        return redirect(url_for("success", playlist_name=playlist_name))
+
+    return render_template(
+        "index.html",
+        client_id=client_id,
+        client_secret=client_secret,
+        redirect_uri=redirect_uri,
+    )
+
+
+"""
+Route decorator for importing song recommendations to an existing Spotify playlist.
+Accepts POST requests with form data containing the playlist name and song recommendations.
+Returns a redirect to the success page if the playlist is successfully updated, 
+else returns the index page with an error message.
+"""
+
+
+@app.route("/import_to_existing_playlist", methods=["POST"])
+def import_to_existing_playlist():
+    if request.method == "POST":
+        playlist_name = request.form["playlist_name"]
+        song_recommendations = request.form["song_recommendations"].splitlines()
+
+        if not playlist_name:
+            return render_template(
+                "index.html",
+                client_id=client_id,
+                client_secret=client_secret,
+                redirect_uri=redirect_uri,
+                error_message="Please select an existing playlist.",
+            )
+
+        sp = spotipy.Spotify(
+            auth_manager=SpotifyOAuth(
+                client_id=client_id,
+                client_secret=client_secret,
+                redirect_uri=redirect_uri,
+                scope="playlist-modify-public playlist-modify-private",
+                username=username,
+            )
+        )
+
+        track_ids = []
+        for song in song_recommendations:
+            search_result = sp.search(q=song, type="track", limit=1)
+            if search_result["tracks"]["items"]:
+                track_id = search_result["tracks"]["items"][0]["id"]
+                track_ids.append(track_id)
+
+        if track_ids:
+            sp.playlist_add_items(playlist_id=playlist_name, items=track_ids)
+
+        playlist = sp.playlist(playlist_id=playlist_name)
+        playlist_name = playlist["name"]
         return redirect(url_for("success", playlist_name=playlist_name))
 
     return render_template(
