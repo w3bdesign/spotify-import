@@ -1,0 +1,59 @@
+/* Center align elements */
+.text-center {
+  text-align: center;
+}
+
+/* Left align elements */
+.text-left {
+  text-align: left;
+}
+
+/* Right align elements */
+.text-right {
+  text-align: right;
+}
+
+/* Hide elements */
+.hide {
+  display: none;
+}
+
+/* Show elements */
+.show {
+  display: block;
+}
+
+/* Clearfix */
+.cf::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Margin utilities */
+.mt-1 {
+  margin-top: 0.25rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-3 {
+  margin-top: 0.75rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+
+/* Padding utilities */
+.p-1 {
+  padding: 0.25rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-3 {
+  padding: 0.75rem;
+}
+.p-4 {
+  padding: 1rem;
+}
