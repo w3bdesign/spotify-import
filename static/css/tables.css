@@ -20,11 +20,15 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
-  height: 0;
+  padding: 0;
+  margin-top: 0;
 }
 
 #song-suggestions.show {
+  opacity: 1;
   visibility: visible;
+  padding: 35px;
+  margin-top: 25px;
 }
 
 .add-song {

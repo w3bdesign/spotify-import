@@ -185,6 +185,8 @@ export function displaySuggestions(suggestions) {
   }
 
   suggestionsDiv.classList.add("show");
+
+ 
 }
 
 /**
