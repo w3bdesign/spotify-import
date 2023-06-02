@@ -8,9 +8,9 @@ from spotipy.oauth2 import SpotifyOAuth
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(64)
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SESSION_FILE_DIR'] = './.flask_session/'
+app.config["SECRET_KEY"] = os.urandom(64)
+app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_FILE_DIR"] = "./.flask_session/"
 
 load_dotenv()
 
@@ -136,6 +136,23 @@ def callback():
 
 @app.route("/", methods=["GET"])
 def index():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(
+        scope="user-read-currently-playing playlist-modify-private",
+        cache_handler=cache_handler,
+        show_dialog=True,
+    )
+
+    if request.args.get("code"):
+        # Step 2. Being redirected from Spotify auth page
+        auth_manager.get_access_token(request.args.get("code"))
+        return redirect("/")
+
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        # Step 1. Display sign in link when no token
+        auth_url = auth_manager.get_authorize_url()
+        return f'<h2><a href="{auth_url}">Sign in</a></h2>'
+
     return render_template(
         "index.html",
         client_id=client_id,
