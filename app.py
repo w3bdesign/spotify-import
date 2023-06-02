@@ -114,33 +114,12 @@ def generate_suggestions():
     return jsonify(suggestions)
 
 
-"""
-This function is the callback endpoint for the application's OAuth2 authentication flow. 
-It receives an authorization code from the user's grant, exchanges it for an access token, and stores the token in the user's session. 
-If successful, the user is redirected to the application's index page. 
-If the user does not provide a code or the token cannot be obtained, an error message is returned.
-If successful, redirects the user to the application's index page. If unsuccessful, returns an error message string.
-"""
-
-
-@app.route("/callback")
-def callback():
-    code = request.args.get("code")
-    if code:
-        token_info = sp_oauth.get_access_token(code, as_dict=False)
-        if token_info:
-            session["token_info"] = token_info
-            return redirect(url_for("index"))
-    return "Error: No code provided or token not obtained."
-
-
 @app.route("/", methods=["GET"])
 def index():
     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
     auth_manager = spotipy.oauth2.SpotifyOAuth(
         scope="user-read-currently-playing playlist-modify-private",
         cache_handler=cache_handler,
-        show_dialog=True,
     )
 
     if request.args.get("code"):
@@ -148,16 +127,16 @@ def index():
         auth_manager.get_access_token(request.args.get("code"))
         return redirect("/")
 
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        # Step 1. Display sign in link when no token
-        auth_url = auth_manager.get_authorize_url()
-        return f'<h2><a href="{auth_url}">Sign in</a></h2>'
+    signed_in = auth_manager.validate_token(cache_handler.get_cached_token())
+    auth_url = auth_manager.get_authorize_url() if not signed_in else None
 
     return render_template(
         "index.html",
         client_id=client_id,
         client_secret=client_secret,
         redirect_uri=redirect_uri,
+        auth_url=auth_url,
+        signed_in=signed_in,
     )
 
 
