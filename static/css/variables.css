@@ -1,0 +1,16 @@
+:root {
+    --main-bg-color: #181818;
+    --form-bg-color: #282828;
+    --form-button-color: #1ed760;
+    --form-button-hover-color: #1aa34d;
+    --input-bg-color: #3c3c3c;
+    --success-color: #1db954;
+    --error-color: #e74c3c;
+    --text-color: #fff;
+    --button-primary-color: #1d4ed8;
+    --button-primary-hover-color: #3b82f6;
+    --border-color: #3c3c3c;
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    --transition-duration: 0.3s;
+    --container-width: 775px;
+  }

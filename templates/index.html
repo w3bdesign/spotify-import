@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='/css/styles.css') }}"
+      href="{{ url_for('static', filename='/css/main.css') }}"
     />
     <title>Create Spotify Playlist</title>
   </head>
@@ -36,8 +36,8 @@
         >Number of suggestions:</label
       >
       <select class="form__input" id="num_suggestions" name="num_suggestions">
-        <option value="10">10</option>
-        <option value="20" selected>20</option>
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
         <option value="30">30</option>
         <option value="40">40</option>
         <option value="50">50</option>
@@ -48,43 +48,108 @@
     </form>
     <br />
     <div class="form-background" id="song-suggestions"></div>
-    <h1>Import To Spotify Playlist</h1>
-    <form class="form" method="post" id="playlist-form">
-      <label class="form__label" for="playlist_name">Playlist Name:</label>
-      <input
-        class="form__input"
-        type="text"
-        id="playlist_name"
-        name="playlist_name"
-        required
-      /><br />
-      <label class="form__label" for="playlist_description"
-        >Playlist Description:</label
-      >
-      <input
-        class="form__input"
-        type="text"
-        id="playlist_description"
-        name="playlist_description"
-        required
-      /><br />
-      <label class="form__label" for="song_recommendations"
-        >Song Recommendations (one per line):</label
-      >
-      <textarea
-        class="form__textarea"
-        id="song_recommendations"
-        name="song_recommendations"
-        rows="10"
-        cols="50"
-        disabled
-      ></textarea>
-      <div class="submit-wrapper">       
-        <input class="form__submit" type="submit" value="Create Playlist" />
-        <button class="form__submit__warning" type="reset">Reset</button>
+
+    <h1 class="margin-top-four-rem">Import To Spotify</h1>
+    <div class="tabs">
+      <div class="tab-wrapper">
+        <button class="tab" id="newPlaylistTab">New Playlist</button>
+        <button class="tab" id="importPlaylistTab">
+          Import to Existing Playlist
+        </button>
+        <div class="border-bottom"></div>
       </div>
-    </form>
+    </div>
+    <div class="tab-content" id="newPlaylistContent">
+      <br />&nbsp;
+      <h2>New Playlist</h2>
+      <form
+        class="form"
+        id="playlist-form"
+        method="POST"
+        action="/generate_playlist"
+      >
+        <label class="form__label" for="playlist_name">Playlist Name:</label>
+        <input
+          class="form__input"
+          type="text"
+          id="playlist_name"
+          name="playlist_name"
+          required
+        /><br />
+        <label class="form__label" for="playlist_description"
+          >Playlist Description:</label
+        >
+        <input
+          class="form__input"
+          type="text"
+          id="playlist_description"
+          name="playlist_description"
+          required
+        /><br />
+        <label class="form__label" for="song_recommendations"
+          >Song Recommendations (one per line):</label
+        >
+        <textarea
+          class="form__textarea"
+          id="song_recommendations"
+          name="song_recommendations"
+          rows="10"
+          cols="50"
+          disabled
+        ></textarea>
+        <div class="submit-wrapper">
+          <input class="form__submit" type="submit" value="New Playlist" />
+          <button class="form__submit__warning" type="reset">Reset</button>
+        </div>
+      </form>
+    </div>
+    <div class="tab-content" id="importPlaylistContent" style="display: none">
+      <br />&nbsp;
+      <h2>Import to Existing Playlist</h2>
+      <form
+        class="form"
+        method="POST"
+        id="playlist-form-existing"
+        method="/import_to_existing_playlist"
+      >
+        <label class="form__label" for="playlist_description"
+          >Playlist Overview:</label
+        >
+        <select
+          id="select"
+          name="playlist_overview"
+          class="form__select"
+        ></select>
+
+        <br />
+
+        <label class="form__label" for="song_recommendations"
+          >Song Recommendations (one per line):</label
+        >
+        <textarea
+          class="form__textarea"
+          id="song_recommendations_existing"
+          name="song_recommendations"
+          rows="10"
+          cols="50"
+          disabled
+        ></textarea>
+        <div class="submit-wrapper">
+          <input
+            class="form__submit"
+            type="submit"
+            value="Import To Playlist"
+          />
+          <button class="form__submit__warning" type="reset">Reset</button>
+        </div>
+      </form>
+    </div>
 
     <script src="/static/scripts/main.js" type="module" defer></script>
+    <script
+      src="/static/scripts/tabbedNavigation.js"
+      type="module"
+      defer
+    ></script>
   </body>
 </html>

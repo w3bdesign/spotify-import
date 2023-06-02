@@ -1,0 +1,113 @@
+.form__submit {
+  background-color: var(--success-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+  margin-left: 10px;
+  min-width: 150px;
+}
+
+.form__submit__warning {
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+  margin-left: 10px;
+  background-color: var(--error-color);
+  min-width: 150px;
+}
+
+.form__submit:hover {
+  background-color: var(--form-button-hover-color);
+}
+
+.form__submit:active {
+  background-color: var(--form-button-hover-color);
+}
+
+.form__input:focus,
+.form__textarea:focus {
+  outline-color: var(--success-color);
+}
+.button__link {
+  margin-top: 20px;
+}
+
+.button:hover {
+  background-color: var(--button-primary-hover-color);
+}
+
+.submit-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  justify-items: center;
+}
+
+.play-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--success-color);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  padding: 0;
+}
+
+.play-button:hover {
+  background-color: var(--form-button-hover-color);
+}
+
+.play-button::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: -100%;
+  transition: left 0.3s;
+}
+
+.play-button:hover::before {
+  left: 100%;
+}
+
+.play-button svg {
+  width: 12px;
+  height: 12px;
+  fill: #ffffff;
+}
+
+/* Target the first path element inside a .disabled-button */
+
+.disabled-button {
+  cursor: not-allowed;
+}
+
+.disabled-button path:first-child {
+  fill: #ccc !important;
+}
+
+.disabled-button path {
+  transition: fill 0.3s ease-in-out;
+}
