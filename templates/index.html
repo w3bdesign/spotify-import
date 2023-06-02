@@ -48,48 +48,8 @@
     </form>
     <br />
     <div class="form-background" id="song-suggestions"></div>
-    <h1>New Spotify Playlist</h1>
-    <form class="form" method="post" id="playlist-form">
-      <label class="form__label" for="playlist_name">Playlist Name:</label>
-      <input
-        class="form__input"
-        type="text"
-        id="playlist_name"
-        name="playlist_name"
-        required
-      /><br />
-      <label class="form__label" for="playlist_description"
-        >Playlist Description:</label
-      >
-      <input
-        class="form__input"
-        type="text"
-        id="playlist_description"
-        name="playlist_description"
-        required
-      /><br />
-      <label class="form__label" for="song_recommendations"
-        >Song Recommendations (one per line):</label
-      >
-      <textarea
-        class="form__textarea"
-        id="song_recommendations"
-        name="song_recommendations"
-        rows="10"
-        cols="50"
-        disabled
-      ></textarea>
-      <div class="submit-wrapper">
-        <input class="form__submit" type="submit" value="New Playlist" />
-        <button class="form__submit__warning" type="reset">Reset</button>
-      </div>
-    </form>
 
-    <h1>Playlists:</h1>
-    <div id="playlist-container"></div>
-
-    <!-- Tabbed navigation -->
-
+    <h1>Import To Spotify</h1>
     <div class="tabs">
       <div class="tab-wrapper">
         <!-- Add this line -->
@@ -183,6 +143,9 @@
         </div>
       </form>
     </div>
+
+    <h1>Playlists:</h1>
+    <div id="playlist-container"></div>
 
     <script>
       document
