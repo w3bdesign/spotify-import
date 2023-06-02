@@ -120,6 +120,18 @@
           name="playlist_description"
           required
         /><br />
+
+        <label class="form__label" for="playlist_description"
+          >Playlist Overview:</label
+        >
+        <select
+          id="select"
+          name="playlist_overview"
+          class="form__select"
+        ></select>
+
+        <br />
+
         <label class="form__label" for="song_recommendations"
           >Song Recommendations (one per line):</label
         >
@@ -141,8 +153,7 @@
         </div>
       </form>
     </div>
-    <h1>Playlists:</h1>
-    <div id="playlist-container"></div>
+
     <script src="/static/scripts/main.js" type="module" defer></script>
     <script
       src="/static/scripts/tabbedNavigation.js"

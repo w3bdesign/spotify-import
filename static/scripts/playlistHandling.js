@@ -38,32 +38,36 @@ export async function handlePlaylistFormSubmit(event) {
 }
 
 /**
- * Fetches playlists data from server and displays them on the page.
+ * Fetches playlists data from server and displays them in a <select> element.
  *
- * @return {Promise<void>} A promise that resolves once the playlists are displayed on the page.
+ * @return {Promise<void>} A promise that resolves once the playlists are displayed in the <select>.
  */
 export async function fetchAndDisplayPlaylists() {
   const response = await fetch("/playlists");
   const playlistsData = await response.json();
   const playlists = playlistsData.items;
 
-  const playlistContainer = document.getElementById("playlist-container");
-  playlistContainer.innerHTML = "";
+  const playlistSelect = document.querySelector(
+    'select[name="playlist_overview"]'
+  );
+  playlistSelect.classList.add("spotify-select"); // Add the "spotify-select" class
 
   for (const playlist of playlists) {
-    const playlistElement = document.createElement("div");
-    playlistElement.className = "playlist-item";
-    playlistElement.innerHTML = `
-        <h3>${playlist.name}</h3>
-        <p>${playlist.description || "No description"}</p>
-        <a href="${
-          playlist.external_urls.spotify
-        }" target="_blank">Open in Spotify</a>
-      `;
+    const playlistOption = document.createElement("option");
+    playlistOption.value = playlist.id;
 
-    playlistContainer.appendChild(playlistElement);
+    // Uncomment if we want to show the description
+    /*playlistOption.textContent = `${playlist.name} - ${
+      playlist.description || "No description"
+    }`;*/
+
+    playlistOption.textContent = playlist.name;
+
+    playlistSelect.appendChild(playlistOption);
   }
 }
 
-// Call the function to fetch and display the playlists
-fetchAndDisplayPlaylists();
+document.addEventListener("DOMContentLoaded", function () {
+  // Call the function to fetch and display the playlists
+  fetchAndDisplayPlaylists();
+});
