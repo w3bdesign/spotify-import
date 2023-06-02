@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='/css/styles.css') }}"
+      href="{{ url_for('static', filename='/css/main.css') }}"
     />
     <title>Create Spotify Playlist</title>
   </head>
@@ -91,13 +91,15 @@
     <!-- Tabbed navigation -->
 
     <div class="tabs">
-      <div class="tab-wrapper"> <!-- Add this line -->
+      <div class="tab-wrapper">
+        <!-- Add this line -->
         <button class="tab" id="newPlaylistTab">New Playlist</button>
         <button class="tab" id="importPlaylistTab">
           Import to Existing Playlist
         </button>
         <div class="border-bottom"></div>
-      </div> <!-- Add this line -->
+      </div>
+      <!-- Add this line -->
     </div>
     <div class="tab-content" id="newPlaylistContent">
       <br />&nbsp;
