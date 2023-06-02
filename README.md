@@ -6,13 +6,13 @@
 
 # Spotify Playlist Creator
 
-A simple web application that allows users to create Spotify playlists with song recommendations.
+A Flask web application that allows users to create a new Spotify playlist with song recommendations or import to an existing one.
 
 ## Features
 
-- Load Spotify developer data from a `.env` file
-- Create a Spotify playlist with a name and description
-- Add song recommendations to the playlist
+- chatGPT based song recommendations
+- Create a new Spotify playlist
+- Import to an existing playlist
 
 ## Installation
 
