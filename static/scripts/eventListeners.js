@@ -1,5 +1,8 @@
 import { handleSongFormSubmit } from "./songHandling.js";
-import { handleNewPlaylistFormSubmit, handleImportPlaylistFormSubmit } from "./playlistHandling.js";
+import {
+  handleNewPlaylistFormSubmit,
+  handleImportPlaylistFormSubmit,
+} from "./playlistHandling.js";
 
 /**
  * Adds event listeners for the song form, playlist form, and new/import playlist tabs.
@@ -17,24 +20,9 @@ export function addEventListeners() {
     .getElementById("playlist-form")
     .addEventListener("submit", handleNewPlaylistFormSubmit);
 
-
-    document
+  document
     .getElementById("playlist-form-existing")
     .addEventListener("submit", handleImportPlaylistFormSubmit);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   document
     .getElementById("newPlaylistTab")
@@ -56,11 +44,6 @@ export function addEventListeners() {
       document.getElementById("importPlaylistTab").classList.add("active");
     });
 
-
-
-
-
-
   const importPlaylistForm = document.getElementById("playlist-form");
 
   importPlaylistForm.addEventListener("submit", function (event) {
@@ -74,6 +57,4 @@ export function addEventListeners() {
 
     importPlaylistForm.appendChild(hiddenPlaylistIdInput);
   });
-
-
 }
