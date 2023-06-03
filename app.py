@@ -184,7 +184,7 @@ def create_playlist():
                 client_id=client_id,
                 client_secret=client_secret,
                 redirect_uri=redirect_uri,
-                scope="playlist-modify-public playlist-modify-private",
+                scope="playlist-modify-public playlist-read-private",
                 username=username,
             )
         )
@@ -241,7 +241,8 @@ def import_to_existing_playlist():
                 client_id=client_id,
                 client_secret=client_secret,
                 redirect_uri=redirect_uri,
-                scope="playlist-modify-public playlist-modify-private",
+                #scope="playlist-modify-public playlist-modify-private",
+                scope="playlist-modify-public playlist-read-private",
                 username=username,
             )
         )
