@@ -5,7 +5,7 @@
  * @return {Promise<void>} - A Promise that resolves when the playlist is generated.
  */
 export async function handleNewPlaylistFormSubmit(event) {
-  alert("Submit");
+ 
   event.preventDefault();
 
   const playlistName = document.getElementById("playlist_name").value;

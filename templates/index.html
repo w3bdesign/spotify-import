@@ -9,16 +9,13 @@
     <title>Create Spotify Playlist</title>
   </head>
   <body id="body" class="no-transition">
-    {% if client_id and client_secret and redirect_uri %}
-    <p class="message message--success">
-      Spotify credential data has been loaded.
-    </p>
+
+    {% if not signed_in %}
+    <h2>
+      <a href="{{ auth_url }}">
+        <button class="form__submit">Sign In To Spotify</button>
+      </a>        
     {% else %}
-    <p class="message message--error">
-      Spotify developer data could not be loaded from the .env file. Check your
-      .env file and make sure it contains the correct variables.
-    </p>
-    {% endif %}
 
     <h1>Generate song recommendations</h1>
     <form class="form" method="post" id="song-form">
@@ -151,5 +148,6 @@
       type="module"
       defer
     ></script>
+    {% endif %}
   </body>
 </html>
