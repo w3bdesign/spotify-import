@@ -1,4 +1,4 @@
 Flask==2.1.1
-openai==0.27.0
+openai==0.27.7
 spotipy==2.19.0
 python-dotenv==0.19.2
