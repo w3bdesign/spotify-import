@@ -1,4 +1,4 @@
-import { handleSongFormSubmit } from "./songHandling.js";
+import { handleSongFormSubmit, createPlayButton } from "./songHandling.js";
 import {
   handleNewPlaylistFormSubmit,
   handleImportPlaylistFormSubmit,
@@ -11,9 +11,11 @@ import {
  */
 export function addEventListeners() {
   // Add event listener for song form
+
   document
     .getElementById("song-form")
     .addEventListener("submit", handleSongFormSubmit);
+
 
   // Add event listener for playlist form
   document
@@ -36,5 +38,57 @@ export function addEventListeners() {
     hiddenPlaylistIdInput.value = selectedPlaylistId;
 
     importPlaylistForm.appendChild(hiddenPlaylistIdInput);
+  });
+
+  const songSearch = document.getElementById("song_name");
+  const searchResults = document.getElementById("search-results");
+
+  songSearch.addEventListener("input", async (e) => {
+    console.log("Searchresults", searchResults);
+
+    const query = e.target.value;
+
+    if (query.length > 2) {
+      const response = await fetch(
+        `/search_songs?song_name=${encodeURIComponent(query)}`
+      );
+      const data = await response.json();
+
+      if (data.results) {
+        displaySearchResults(data.results);
+      } else {
+        searchResults.innerHTML = "Song not found";
+      }
+    } else {
+      searchResults.innerHTML = "";
+    }
+  });
+}
+
+function displaySearchResults(results) {
+  const searchResults = document.getElementById("search-results");
+
+  console.log("Results:", results);
+
+  searchResults.innerHTML = results
+    .map(
+      (result) => `
+  <div class="search-results">
+      <img src="${result.album_image_url}" alt="Album cover" width="100" height="100">
+      <div class="search-results-info">
+        ${result.song_name} - ${result.artist_name}
+      </div>
+    </div>
+  `
+    )
+    .join("");
+
+  // Create play buttons and add them to the search results
+  const searchResultElements = document.querySelectorAll(".search-results");
+  searchResultElements.forEach((element, index) => {
+    const playButton = createPlayButton(
+      results[index].artist_name + " - " + results[index].song_name
+    );
+    element.appendChild(playButton);
   });
 }

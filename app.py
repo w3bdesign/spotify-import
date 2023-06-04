@@ -97,6 +97,39 @@ def search_song():
         return jsonify({"error": "Song not found"}), 404
 
 
+@app.route("/search_songs", methods=["GET"])
+def search_songs():
+    song_name = request.args.get("song_name")
+    sp = spotipy.Spotify(
+        auth_manager=SpotifyOAuth(
+            client_id=client_id,
+            client_secret=client_secret,
+            redirect_uri=redirect_uri,
+            scope="playlist-modify-public",
+            username=username,
+        )
+    )
+    if not song_name:
+        return jsonify({"error": "No song name provided"}), 400
+
+    results = sp.search(
+        q=song_name, type="track", limit=10
+    )  # Change limit to the desired number of results
+
+    if results and results["tracks"]["items"]:
+        tracks = results["tracks"]["items"]
+        track_data = [
+            {
+                "song_url": track["preview_url"],
+                "song_name": track["name"],
+                "artist_name": track["artists"][0]["name"],
+                "album_image_url": track["album"]["images"][0]["url"],
+            }
+            for track in tracks
+        ]
+    return jsonify({"results": track_data})
+
+
 """
 Defines a POST endpoint that generates song suggestions based on a given seed song.
 
