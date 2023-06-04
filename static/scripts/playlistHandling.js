@@ -93,7 +93,7 @@ export async function fetchAndDisplayPlaylists() {
   const playlistSelect = document.querySelector(
     'select[name="playlist_overview"]'
   );
-  playlistSelect.classList.add("spotify-select"); // Add the "spotify-select" class
+  playlistSelect.classList.add("spotify-select"); 
 
   for (const playlist of playlists) {
     const playlistOption = document.createElement("option");

@@ -24,29 +24,9 @@ export function addEventListeners() {
     .getElementById("playlist-form-existing")
     .addEventListener("submit", handleImportPlaylistFormSubmit);
 
-  document
-    .getElementById("newPlaylistTab")
-    .addEventListener("click", function () {
-      document.getElementById("newPlaylistContent").style.display = "block";
-      document.getElementById("newPlaylistTab").classList.add("active");
-
-      document.getElementById("importPlaylistTab").classList.remove("active");
-      document.getElementById("importPlaylistContent").style.display = "none";
-    });
-
-  document
-    .getElementById("importPlaylistTab")
-    .addEventListener("click", function () {
-      document.getElementById("newPlaylistContent").style.display = "none";
-      document.getElementById("newPlaylistTab").classList.remove("active");
-
-      document.getElementById("importPlaylistContent").style.display = "block";
-      document.getElementById("importPlaylistTab").classList.add("active");
-    });
-
   const importPlaylistForm = document.getElementById("playlist-form");
 
-  importPlaylistForm.addEventListener("submit", function (event) {
+  importPlaylistForm.addEventListener("submit", function () {
     const selectedPlaylistId = document.querySelector(
       'select[name="playlist_overview"]'
     ).value;
