@@ -38,6 +38,7 @@ export async function generateSongSuggestions(song) {
     const data = await response.json();
     const messageContent = data.choices[0].message.content;
     const suggestions = extractSongSuggestions(messageContent);
+
     displaySuggestions(suggestions); // Hide the loading spinner and display the suggestions
     return suggestions;
   } else {
@@ -76,7 +77,7 @@ function extractSongSuggestions(messageContent) {
  * @param {string} songName - The name of the song to be played.
  * @return {HTMLButtonElement} - The play button element.
  */
-function createPlayButton(songName) {
+export function createPlayButton(songName) {
   const playButton = document.createElement("button");
   playButton.setAttribute("data-state", "play");
   playButton.innerHTML = `
@@ -101,7 +102,7 @@ function createPlayButton(songName) {
  * @param {string} songName - The name of the song to add to the playlist.
  * @return {HTMLButtonElement} The created button element.
  */
-function createAddToPlaylistButton(songName) {
+export function createAddToPlaylistButton(songName) {
   const addToPlaylistButton = document.createElement("button");
   addToPlaylistButton.innerHTML = `
     <svg viewBox="0 0 50 50" width="50px" height="50px"><g id="surface1_34_">
@@ -186,16 +187,23 @@ function createSuggestionsTable(suggestions) {
  */
 export function displaySuggestions(suggestions) {
   const suggestionsDiv = document.getElementById("song-suggestions");
+  const importCreateDiv = document.getElementById("import-wrapper");
   suggestionsDiv.innerHTML = "";
 
   if (!suggestions) {
+   
     const spinner = createLoadingSpinner();
     suggestionsDiv.appendChild(spinner);
   } else {
     suggestionsDiv.appendChild(createSuggestionsTable(suggestions));
   }
 
+
+  
   suggestionsDiv.classList.add("show");
+  importCreateDiv.classList.add("show");
+  // Set default active tab
+  document.getElementById("newPlaylistTab").click();
 }
 
 /**
@@ -209,6 +217,7 @@ export async function fetchSongUrl(songName) {
     const response = await fetch(
       `/search_song?song_name=${encodeURIComponent(songName)}`
     );
+
     if (response.ok) {
       const data = await response.json();
       return data.song_url;

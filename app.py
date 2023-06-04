@@ -6,19 +6,21 @@ from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyOAuth
 import os
+from flask_session import Session
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(64)
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_FILE_DIR"] = "./.flask_session/"
+Session(app)
 
 load_dotenv()
 
 # Load the environment variables
-client_id = os.getenv("SPOTIPY_CLIENT_ID")
-client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
+# client_id = os.getenv("SPOTIPY_CLIENT_ID")
+# client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
 redirect_uri = os.getenv("SPOTIPY_REDIRECT_URI")
-username = os.getenv("SPOTIPY_USER_NAME")
+
 openai_api_key = os.getenv("OPENAI_API_KEY")
 openai_api_base_url = os.getenv("OPENAI_API_BASE_URL")
 
@@ -26,15 +28,6 @@ openai_api_base_url = os.getenv("OPENAI_API_BASE_URL")
 openai.api_key = openai_api_key
 openai.api_base = openai_api_base_url
 
-
-# Create a Spotify OAuth object
-sp_oauth = SpotifyOAuth(
-    client_id=client_id,
-    client_secret=client_secret,
-    redirect_uri=redirect_uri,
-    scope="playlist-modify-public",
-    username=username,
-)
 
 """
 Generate song suggestions based on a seed song.
@@ -76,15 +69,12 @@ If the song is not found, returns a JSON error message with status code 404.
 @app.route("/search_song", methods=["GET"])
 def search_song():
     song_name = request.args.get("song_name")
-    sp = spotipy.Spotify(
-        auth_manager=SpotifyOAuth(
-            client_id=client_id,
-            client_secret=client_secret,
-            redirect_uri=redirect_uri,
-            scope="playlist-modify-public",
-            username=username,
-        )
-    )
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect("/")
+
+    sp = spotipy.Spotify(auth_manager=auth_manager)
     if not song_name:
         return jsonify({"error": "No song name provided"}), 400
 
@@ -95,6 +85,38 @@ def search_song():
         return jsonify({"song_url": song_url})
     else:
         return jsonify({"error": "Song not found"}), 404
+
+
+@app.route("/search_songs", methods=["GET"])
+def search_songs():
+    song_name = request.args.get("song_name")
+
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect("/")
+
+    sp = spotipy.Spotify(auth_manager=auth_manager)
+
+    if not song_name:
+        return jsonify({"error": "No song name provided"}), 400
+
+    results = sp.search(
+        q=song_name, type="track", limit=10
+    )  # Change limit to the desired number of results
+
+    if results and results["tracks"]["items"]:
+        tracks = results["tracks"]["items"]
+        track_data = [
+            {
+                "song_url": track["preview_url"],
+                "song_name": track["name"],
+                "artist_name": track["artists"][0]["name"],
+                "album_image_url": track["album"]["images"][0]["url"],
+            }
+            for track in tracks
+        ]
+    return jsonify({"results": track_data})
 
 
 """
@@ -118,7 +140,7 @@ def generate_suggestions():
 def index():
     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
     auth_manager = spotipy.oauth2.SpotifyOAuth(
-        scope="user-read-currently-playing playlist-modify-private",
+        scope="playlist-modify-public playlist-read-private playlist-modify-private",
         cache_handler=cache_handler,
     )
 
@@ -132,8 +154,6 @@ def index():
 
     return render_template(
         "index.html",
-        client_id=client_id,
-        client_secret=client_secret,
         redirect_uri=redirect_uri,
         auth_url=auth_url,
         signed_in=signed_in,
@@ -149,18 +169,14 @@ Endpoint that returns all playlists of the authenticated user.
 
 
 @app.route("/playlists", methods=["GET"])
-def get_playlists():
-    sp = spotipy.Spotify(
-        auth_manager=SpotifyOAuth(
-            client_id=client_id,
-            client_secret=client_secret,
-            redirect_uri=redirect_uri,
-            scope="playlist-modify-public playlist-read-private",
-            username=username,
-        )
-    )
-    user_playlists = sp.current_user_playlists()
-    return jsonify(user_playlists)
+def playlists():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect("/")
+
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+    return spotify.current_user_playlists()
 
 
 """
@@ -179,15 +195,10 @@ def create_playlist():
         playlist_description = request.form["playlist_description"]
         song_recommendations = request.form["song_recommendations"].splitlines()
 
-        sp = spotipy.Spotify(
-            auth_manager=SpotifyOAuth(
-                client_id=client_id,
-                client_secret=client_secret,
-                redirect_uri=redirect_uri,
-                scope="playlist-modify-public playlist-read-private",
-                username=username,
-            )
-        )
+        cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+        auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+
+        sp = spotipy.Spotify(auth_manager=auth_manager)
 
         playlist = sp.user_playlist_create(
             user=username, name=playlist_name, description=playlist_description
@@ -207,8 +218,6 @@ def create_playlist():
 
     return render_template(
         "index.html",
-        client_id=client_id,
-        client_secret=client_secret,
         redirect_uri=redirect_uri,
     )
 
@@ -230,21 +239,16 @@ def import_to_existing_playlist():
         if not playlist_name:
             return render_template(
                 "index.html",
-                client_id=client_id,
-                client_secret=client_secret,
                 redirect_uri=redirect_uri,
                 error_message="Please select an existing playlist.",
             )
 
-        sp = spotipy.Spotify(
-            auth_manager=SpotifyOAuth(
-                client_id=client_id,
-                client_secret=client_secret,
-                redirect_uri=redirect_uri,
-                scope="playlist-modify-public playlist-read-private",
-                username=username,
-            )
-        )
+        cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+        auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+        if not auth_manager.validate_token(cache_handler.get_cached_token()):
+            return redirect("/")
+
+        sp = spotipy.Spotify(auth_manager=auth_manager)
 
         track_ids = []
         for song in song_recommendations:
@@ -262,8 +266,6 @@ def import_to_existing_playlist():
 
     return render_template(
         "index.html",
-        client_id=client_id,
-        client_secret=client_secret,
         redirect_uri=redirect_uri,
     )
 
