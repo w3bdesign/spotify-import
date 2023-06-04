@@ -186,6 +186,7 @@ function createSuggestionsTable(suggestions) {
  */
 export function displaySuggestions(suggestions) {
   const suggestionsDiv = document.getElementById("song-suggestions");
+  const importCreateDiv = document.getElementById("import-wrapper");
   suggestionsDiv.innerHTML = "";
 
   if (!suggestions) {
@@ -196,6 +197,9 @@ export function displaySuggestions(suggestions) {
   }
 
   suggestionsDiv.classList.add("show");
+  importCreateDiv.classList.add("show");
+  // Set default active tab
+  document.getElementById("newPlaylistTab").click();
 }
 
 /**
