@@ -104,7 +104,11 @@ function createPlayButton(songName) {
 function createAddToPlaylistButton(songName) {
   const addToPlaylistButton = document.createElement("button");
   addToPlaylistButton.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" width="48px" height="48px"><g id="surface1_34_"><path style="fill:#4CAF50;" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"/><path style="fill:#FFFFFF;" d="M21,14h6v20h-6V14z"/><path style="fill:#FFFFFF;" d="M14,21h20v6H14V21z"/></g></svg>`;
+    <svg viewBox="0 0 50 50" width="50px" height="50px"><g id="surface1_34_">
+    <path style="fill:#4CAF50;" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"/>
+    <path style="fill:#FFFFFF;" d="M21,14h6v20h-6V14z"/>
+    <path style="fill:#FFFFFF;" d="M14,21h20v6H14V21z"/></g>
+    </svg>`;
   addToPlaylistButton.classList.add("add-song");
 
   addToPlaylistButton.addEventListener("click", function () {
