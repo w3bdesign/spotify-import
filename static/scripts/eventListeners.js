@@ -77,8 +77,7 @@ export function addEventListeners() {
 
 function displaySearchResults(results) {
   const searchResults = document.getElementById("search-results");
-
-
+  const searchResultsHeader = document.getElementById("search-results-header");
 
   // Create table and table header
   const table = document.createElement("table");
@@ -142,8 +141,11 @@ function displaySearchResults(results) {
     const selectButton = createAddToPlaylistButton(result.song_name);
 
     selectButton.addEventListener("click", async () => {
-      const searchResults = document.getElementById("search-results");
+      searchResults.classList.remove("show");
+      searchResultsHeader.classList.remove("show");
+
       searchResults.classList.add("hide");
+      searchResultsHeader.classList.add("hide");
 
       const suggestions = await generateSongSuggestions(result.song_name);
       displaySuggestions(suggestions);
@@ -159,7 +161,9 @@ function displaySearchResults(results) {
   searchResults.innerHTML = "";
   searchResults.appendChild(table);
 
-
   searchResults.classList.remove("hide");
   searchResults.classList.add("show");
+
+  searchResultsHeader.classList.remove("hide");
+  searchResultsHeader.classList.add("show");
 }
