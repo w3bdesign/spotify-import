@@ -16,7 +16,6 @@ export function addEventListeners() {
     .getElementById("song-form")
     .addEventListener("submit", handleSongFormSubmit);
 
-
   // Add event listener for playlist form
   document
     .getElementById("playlist-form")
@@ -44,8 +43,6 @@ export function addEventListeners() {
   const searchResults = document.getElementById("search-results");
 
   songSearch.addEventListener("input", async (e) => {
-    console.log("Searchresults", searchResults);
-
     const query = e.target.value;
 
     if (query.length > 2) {
@@ -65,30 +62,73 @@ export function addEventListeners() {
   });
 }
 
+/**
+ * Renders the search results in a table format to the search-results element.
+ *
+ * @param {Array} results - An array of objects containing song information.
+ * @return {undefined} This function does not return anything.
+ */
+
 function displaySearchResults(results) {
   const searchResults = document.getElementById("search-results");
 
-  console.log("Results:", results);
+  // Create table and table header
+  const table = document.createElement("table");
+  const headerRow = document.createElement("tr");
 
-  searchResults.innerHTML = results
-    .map(
-      (result) => `
-  <div class="search-results">
-      <img src="${result.album_image_url}" alt="Album cover" width="100" height="100">
-      <div class="search-results-info">
-        ${result.song_name} - ${result.artist_name}
-      </div>
-    </div>
-  `
-    )
-    .join("");
+  table.classList.add("song-results-table");
 
-  // Create play buttons and add them to the search results
-  const searchResultElements = document.querySelectorAll(".search-results");
-  searchResultElements.forEach((element, index) => {
-    const playButton = createPlayButton(
-      results[index].artist_name + " - " + results[index].song_name
-    );
-    element.appendChild(playButton);
+  const albumImageHeader = document.createElement("th");
+  albumImageHeader.textContent = "Album Cover";
+  headerRow.appendChild(albumImageHeader);
+
+  const songNameHeader = document.createElement("th");
+  songNameHeader.textContent = "Song Name";
+  headerRow.appendChild(songNameHeader);
+
+  const artistNameHeader = document.createElement("th");
+  artistNameHeader.textContent = "Artist Name";
+  headerRow.appendChild(artistNameHeader);
+
+  const playButtonHeader = document.createElement("th");
+  playButtonHeader.textContent = "Preview";
+  headerRow.appendChild(playButtonHeader);
+
+  table.appendChild(headerRow);
+
+  // Add search results to the table
+  results.forEach((result) => {
+    const row = document.createElement("tr");
+
+    const albumImageCell = document.createElement("td");
+    const albumImage = document.createElement("img");
+    albumImage.src = result.album_image_url;
+    albumImage.width = 100;
+    albumImage.height = 100;
+    albumImage.alt = "Album cover";
+    albumImageCell.appendChild(albumImage);
+    row.appendChild(albumImageCell);
+
+    const songNameCell = document.createElement("td");
+    songNameCell.textContent = result.song_name;
+    row.appendChild(songNameCell);
+
+    const artistNameCell = document.createElement("td");
+    artistNameCell.textContent = result.artist_name;
+    row.appendChild(artistNameCell);
+
+    const playButtonCell = document.createElement("td");
+    const playButton = createPlayButton(result.song_name);
+    playButton.addEventListener("click", () => {
+      playSong(result.song_name, playButton, result.song_url);
+    });
+    playButtonCell.appendChild(playButton);
+    row.appendChild(playButtonCell);
+
+    table.appendChild(row);
   });
+
+  // Replace existing search results with the new table
+  searchResults.innerHTML = "";
+  searchResults.appendChild(table);
 }

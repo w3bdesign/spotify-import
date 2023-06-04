@@ -43,3 +43,35 @@
   align-items: center;
   padding: 20px;
 }
+
+/* Main table styles */
+.song-results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  border-spacing: 0 10px;
+}
+
+
+
+/* Table header styles */
+.song-results-table th {
+  font-size: 18px;
+  padding: 15px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Table row styles */
+.song-results-table tr:nth-child(even) {
+  background-color: #181818;
+}
+
+.song-results-table td {
+  padding: 15px;
+  text-align: center;
+  vertical-align: middle;
+  margin-top:5px;
+  margin-bottom: 5px;
+}
