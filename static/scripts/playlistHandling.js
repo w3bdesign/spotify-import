@@ -87,8 +87,6 @@ export async function handleImportPlaylistFormSubmit(event) {
 export async function fetchAndDisplayPlaylists() {
   const response = await fetch("/playlists");
 
-  console.log("Playlists:", response);
-
   const playlistsData = await response.json();
   const playlists = playlistsData.items;
 

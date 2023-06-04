@@ -1,4 +1,10 @@
-import { handleSongFormSubmit, createPlayButton } from "./songHandling.js";
+import {
+  handleSongFormSubmit,
+  createPlayButton,
+  createAddToPlaylistButton,
+  generateSongSuggestions,
+  displaySuggestions,
+} from "./songHandling.js";
 import {
   handleNewPlaylistFormSubmit,
   handleImportPlaylistFormSubmit,
@@ -72,6 +78,8 @@ export function addEventListeners() {
 function displaySearchResults(results) {
   const searchResults = document.getElementById("search-results");
 
+  searchResults.classList.remove("hide");
+
   // Create table and table header
   const table = document.createElement("table");
   const headerRow = document.createElement("tr");
@@ -93,6 +101,10 @@ function displaySearchResults(results) {
   const playButtonHeader = document.createElement("th");
   playButtonHeader.textContent = "Preview";
   headerRow.appendChild(playButtonHeader);
+
+  const chooseSongHeader = document.createElement("th");
+  chooseSongHeader.textContent = "Select";
+  headerRow.appendChild(chooseSongHeader);
 
   table.appendChild(headerRow);
 
@@ -119,11 +131,26 @@ function displaySearchResults(results) {
 
     const playButtonCell = document.createElement("td");
     const playButton = createPlayButton(result.song_name);
+
     playButton.addEventListener("click", () => {
       playSong(result.song_name, playButton, result.song_url);
     });
     playButtonCell.appendChild(playButton);
     row.appendChild(playButtonCell);
+
+    const selectButtonCell = document.createElement("td");
+    const selectButton = createAddToPlaylistButton(result.song_name);
+
+    selectButton.addEventListener("click", async () => {
+      const searchResults = document.getElementById("search-results");
+      searchResults.classList.add("hide");
+
+      const suggestions = await generateSongSuggestions(result.song_name);
+      displaySuggestions(suggestions);
+    });
+
+    selectButtonCell.appendChild(selectButton);
+    row.appendChild(selectButtonCell);
 
     table.appendChild(row);
   });

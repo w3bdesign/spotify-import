@@ -102,7 +102,7 @@ export function createPlayButton(songName) {
  * @param {string} songName - The name of the song to add to the playlist.
  * @return {HTMLButtonElement} The created button element.
  */
-function createAddToPlaylistButton(songName) {
+export function createAddToPlaylistButton(songName) {
   const addToPlaylistButton = document.createElement("button");
   addToPlaylistButton.innerHTML = `
     <svg viewBox="0 0 50 50" width="50px" height="50px"><g id="surface1_34_">

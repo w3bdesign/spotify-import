@@ -17,10 +17,10 @@ Session(app)
 load_dotenv()
 
 # Load the environment variables
-client_id = os.getenv("SPOTIPY_CLIENT_ID")
-client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
+# client_id = os.getenv("SPOTIPY_CLIENT_ID")
+# client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
 redirect_uri = os.getenv("SPOTIPY_REDIRECT_URI")
-username = os.getenv("SPOTIPY_USER_NAME")
+
 openai_api_key = os.getenv("OPENAI_API_KEY")
 openai_api_base_url = os.getenv("OPENAI_API_BASE_URL")
 
@@ -72,7 +72,7 @@ def search_song():
     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
-            return redirect('/')
+        return redirect("/")
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
     if not song_name:
@@ -154,8 +154,6 @@ def index():
 
     return render_template(
         "index.html",
-        client_id=client_id,
-        client_secret=client_secret,
         redirect_uri=redirect_uri,
         auth_url=auth_url,
         signed_in=signed_in,
@@ -220,8 +218,6 @@ def create_playlist():
 
     return render_template(
         "index.html",
-        client_id=client_id,
-        client_secret=client_secret,
         redirect_uri=redirect_uri,
     )
 
@@ -243,8 +239,6 @@ def import_to_existing_playlist():
         if not playlist_name:
             return render_template(
                 "index.html",
-                client_id=client_id,
-                client_secret=client_secret,
                 redirect_uri=redirect_uri,
                 error_message="Please select an existing playlist.",
             )
@@ -272,8 +266,6 @@ def import_to_existing_playlist():
 
     return render_template(
         "index.html",
-        client_id=client_id,
-        client_secret=client_secret,
         redirect_uri=redirect_uri,
     )
 
