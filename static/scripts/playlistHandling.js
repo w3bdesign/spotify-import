@@ -5,7 +5,6 @@
  * @return {Promise<void>} - A Promise that resolves when the playlist is generated.
  */
 export async function handleNewPlaylistFormSubmit(event) {
- 
   event.preventDefault();
 
   const playlistName = document.getElementById("playlist_name").value;
@@ -87,13 +86,16 @@ export async function handleImportPlaylistFormSubmit(event) {
  */
 export async function fetchAndDisplayPlaylists() {
   const response = await fetch("/playlists");
+
+  console.log("Playlists:", response);
+
   const playlistsData = await response.json();
   const playlists = playlistsData.items;
 
   const playlistSelect = document.querySelector(
     'select[name="playlist_overview"]'
   );
-  playlistSelect.classList.add("spotify-select"); 
+  playlistSelect.classList.add("spotify-select");
 
   for (const playlist of playlists) {
     const playlistOption = document.createElement("option");
@@ -109,8 +111,3 @@ export async function fetchAndDisplayPlaylists() {
     playlistSelect.appendChild(playlistOption);
   }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  // Call the function to fetch and display the playlists
-  fetchAndDisplayPlaylists();
-});
