@@ -52,8 +52,6 @@
   border-spacing: 0 10px;
 }
 
-
-
 /* Table header styles */
 .song-results-table th {
   font-size: 18px;
@@ -72,5 +70,5 @@
   padding: 15px;
   text-align: center;
   vertical-align: middle;
-max-width: 100px;
+  max-width: 100px;
 }

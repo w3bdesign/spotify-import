@@ -78,7 +78,7 @@ export function addEventListeners() {
 function displaySearchResults(results) {
   const searchResults = document.getElementById("search-results");
 
-  searchResults.classList.remove("hide");
+
 
   // Create table and table header
   const table = document.createElement("table");
@@ -158,4 +158,8 @@ function displaySearchResults(results) {
   // Replace existing search results with the new table
   searchResults.innerHTML = "";
   searchResults.appendChild(table);
+
+
+  searchResults.classList.remove("hide");
+  searchResults.classList.add("show");
 }
