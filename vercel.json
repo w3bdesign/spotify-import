@@ -11,7 +11,6 @@
     ],
     "functions": {
       "api/main.py": {
-        "runtime": "@vercel/python@3.9",
         "maxDuration": 10,
         "includeFiles": "templates/**"
       }
