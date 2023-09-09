@@ -1,16 +1,12 @@
 {
     "routes": [
       {
-        "src": "/(search_song|search_songs|generate_suggestions|playlists|generate_playlist|import_to_existing_playlist|success)",
-        "dest": "api/main.py"
-      },
-      {
         "src": "/",
-        "dest": "api/main.py"
+        "dest": "api/minimal.py"
       }
     ],
     "functions": {
-      "api/main.py": {
+      "api/minimal.py": {
         "maxDuration": 10,
         "includeFiles": "templates/**"
       }
