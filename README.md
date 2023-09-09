@@ -15,6 +15,7 @@ A Flask web application that allows users to use GPT-4 to generate song recommen
 - Create a new Spotify playlist
 - Import to an existing playlist
 - Custom toast design with Toastify
+- Deployment is possible via Docker
 
 ## Installation
 
@@ -41,7 +42,7 @@ Replace the placeholders with your actual Spotify developer credentials and desi
 
 You can obtain your Spotify developer credentials from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
 
-# Deployment
+## Deployment
 
 Deployment is possible via Docker:
 
