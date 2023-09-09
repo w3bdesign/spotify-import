@@ -42,7 +42,7 @@ Replace the placeholders with your actual Spotify developer credentials and desi
 
 You can obtain your Spotify developer credentials from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
 
-## Deployment
+## Docker
 
 Deployment is possible via Docker:
 
@@ -64,7 +64,7 @@ docker run -p 5000:5000 \
 
 ## Usage
 
-To run the application, execute the following command:
+To run the application locally, execute the following command:
 
 ```
 cd app
