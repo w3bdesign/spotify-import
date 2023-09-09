@@ -17,8 +17,6 @@ Session(app)
 load_dotenv()
 
 # Load the environment variables
-# client_id = os.getenv("SPOTIPY_CLIENT_ID")
-# client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
 redirect_uri = os.getenv("SPOTIPY_REDIRECT_URI")
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
