@@ -1,10 +1,4 @@
 {
-    "builds": [
-      {
-        "src": "api/main.py",
-        "use": "@vercel/python"
-      }
-    ],
     "routes": [
       {
         "src": "/(search_song|search_songs|generate_suggestions|playlists|generate_playlist|import_to_existing_playlist|success)",
