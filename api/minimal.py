@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -12,25 +12,19 @@ Session(app)
 
 @app.route("/")
 def index():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
     auth_manager = spotipy.oauth2.SpotifyOAuth(
         scope="playlist-modify-public playlist-read-private playlist-modify-private",
-        cache_handler=cache_handler,
     )
 
-    if request.args.get("code"):
-        # Step 2. Being redirected from Spotify auth page
-        auth_manager.get_access_token(request.args.get("code"))
-        return redirect("/")
+    auth_url = auth_manager.get_authorize_url()
+    return render_template("index.html", auth_url=auth_url)
 
-    signed_in = auth_manager.validate_token(cache_handler.get_cached_token())
-    auth_url = auth_manager.get_authorize_url() if not signed_in else None
-
-    return render_template(
-        "index.html",
-        auth_url=auth_url,
-        signed_in=signed_in,
-    )
+@app.route("/callback")
+def callback():
+    code = request.args.get("code")
+    auth_manager = spotipy.oauth2.SpotifyOAuth()
+    token_info = auth_manager.get_access_token(code)
+    return redirect(url_for("index"))
 
 @app.route('/static/<path:path>')
 def send_static(path):
