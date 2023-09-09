@@ -10,7 +10,7 @@ A Flask web application that allows users to use chatGPT to generate song recomm
 
 ## Features
 
-- ChatGPT based song recommendations
+- GPT-4 based song recommendations
 - Play button to listen to each song
 - Create a new Spotify playlist
 - Import to an existing playlist
