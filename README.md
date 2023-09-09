@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/45217974/242405165-214da424-eea8-44d6-86b5-4ae71bbe7bc6.png" alt="Screenshot 1 of project">
+  <img src="https://user-images.githubusercontent.com/45217974/266754191-83d88be5-74ad-40f4-b24a-362caa311510.png" alt="Screenshot 1 of project">
   <br />
-  <img src="https://user-images.githubusercontent.com/45217974/242784809-c34a2a64-9629-4c5c-ab99-c0a0218820d5.png" alt="Screenshot of project">
+  <img src="https://user-images.githubusercontent.com/45217974/242784809-c34a2a64-9629-4c5c-ab99-c0a0218820d5.png" alt="Screenshot 2 of project">
 </div>
 
 # Spotify Playlist Creator
