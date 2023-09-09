@@ -28,8 +28,8 @@
 #song-suggestions.show {
   opacity: 1;
   visibility: visible;
-  padding: 35px;
-  margin-top: 30px;
+  padding: 30px;
+  margin-top: 15px;
 }
 
 .search-results {

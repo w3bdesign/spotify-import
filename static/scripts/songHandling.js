@@ -188,20 +188,26 @@ function createSuggestionsTable(suggestions) {
 export function displaySuggestions(suggestions) {
   const suggestionsDiv = document.getElementById("song-suggestions");
   const importCreateDiv = document.getElementById("import-wrapper");
+  const suggestionsHeader = document.getElementById(
+    "song-recommendations-results-header"
+  );
+
   suggestionsDiv.innerHTML = "";
 
   if (!suggestions) {
-   
     const spinner = createLoadingSpinner();
     suggestionsDiv.appendChild(spinner);
   } else {
     suggestionsDiv.appendChild(createSuggestionsTable(suggestions));
   }
 
-
-  
   suggestionsDiv.classList.add("show");
   importCreateDiv.classList.add("show");
+
+  // Show suggestions header
+  suggestionsHeader.classList.remove("hide");
+  suggestionsHeader.classList.add("show");
+
   // Set default active tab
   document.getElementById("newPlaylistTab").click();
 }

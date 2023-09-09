@@ -1,11 +1,12 @@
 .form {
   background-color: var(--form-bg-color);
-  padding: 35px;
+  padding: 30px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   min-width: var(--container-width);
   margin: 0 auto;
   margin-top: 20px;
+  max-width: 810px;
 }
 
 .form__label {
@@ -14,6 +15,8 @@
   font-weight: bold;
   font-size: 1.1rem;
   margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .form__input,
@@ -82,12 +85,13 @@
 
 .form-background {
   background-color: var(--form-bg-color);
-  padding: 35px;
+  padding: 30px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   min-width: var(--container-width);
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 10px;
+  max-width: 700px;
 }
 
 .form__import-wrapper {
