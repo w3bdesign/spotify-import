@@ -46,6 +46,10 @@ You can obtain your Spotify developer credentials from the [Spotify Developer Da
 Deployment is possible via Docker:
 
 ```
+git clone https://github.com/w3bdesign/spotify-import.git
+
+cd spotify-import
+
 docker build -t spotify-import .
 ```
 
