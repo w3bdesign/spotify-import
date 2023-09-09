@@ -100,17 +100,18 @@
 
 /* Target the first path element inside a .disabled-button */
 
-.disabled-button {
-  cursor: not-allowed;
+.add-song-disabled {
+  cursor: not-allowed !important;;
 }
 
-.disabled-button path:first-child {
+.add-song-disabled path:first-child {
   fill: #ccc !important;
 }
 
-.disabled-button path {
+.add-song-disabled path {
   transition: fill 0.3s ease-in-out;
 }
+
 
 .add-song {
   cursor: pointer;
