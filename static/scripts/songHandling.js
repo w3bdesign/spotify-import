@@ -199,6 +199,11 @@ function createSongRow(songName) {
  * @param {array} suggestions - An array of song names to display in the table.
  * @return {object} The DOM element for the created table.
  */
+
+
+
+
+/*
 function createSuggestionsTable(suggestions) {
   const table = document.createElement("table");
   table.classList.add("song-suggestions-table");
@@ -208,7 +213,76 @@ function createSuggestionsTable(suggestions) {
   }
 
   return table;
+}*/
+
+
+
+
+function createSuggestionsTable(suggestions) {
+  const table = document.createElement("table");
+  table.classList.add("song-suggestions-table");
+
+  // Create table header row
+  const headerRow = document.createElement("tr");
+
+  // Add "Song name" header
+  const songNameHeader = document.createElement("th");
+  songNameHeader.textContent = "Song name";
+  headerRow.appendChild(songNameHeader);
+
+  // Add "Play" header
+  const playHeader = document.createElement("th");
+  playHeader.textContent = "Play";
+  headerRow.appendChild(playHeader);
+
+  // Add "Select" header
+  const selectHeader = document.createElement("th");
+  selectHeader.textContent = "Select";
+  headerRow.appendChild(selectHeader);
+
+  // Append header row to the table
+  table.appendChild(headerRow);
+
+  // Add song rows to the table
+  for (const songName of suggestions) {
+    table.appendChild(createSongRow(songName));
+  }
+
+  return table;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Displays song suggestions in a suggestions div element based on input suggestions array.
