@@ -3,6 +3,10 @@
       {
         "src": "/",
         "dest": "api/minimal.py"
+      },
+      {
+        "src": "/static/(.*)",
+        "dest": "api/minimal.py"
       }
     ],
     "functions": {
