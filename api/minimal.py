@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
+import spotipy.util as util
 from flask_session import Session
 
 app = Flask(__name__)
@@ -12,19 +12,15 @@ Session(app)
 
 @app.route("/")
 def index():
-    auth_manager = spotipy.oauth2.SpotifyOAuth(
-        scope="playlist-modify-public playlist-read-private playlist-modify-private",
-    )
+    username = "your_spotify_username"
+    scope = "playlist-modify-public playlist-read-private playlist-modify-private"
+    token = util.prompt_for_user_token(username, scope)
 
-    auth_url = auth_manager.get_authorize_url()
-    return render_template("index.html", auth_url=auth_url)
-
-@app.route("/callback")
-def callback():
-    code = request.args.get("code")
-    auth_manager = spotipy.oauth2.SpotifyOAuth()
-    token_info = auth_manager.get_access_token(code)
-    return redirect(url_for("index"))
+    if token:
+        sp = spotipy.Spotify(auth=token)
+        return "Logged in successfully"
+    else:
+        return "Can't get token for", username
 
 @app.route('/static/<path:path>')
 def send_static(path):
