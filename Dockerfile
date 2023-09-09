@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5000
 
 # Start the application using gunicorn
-CMD ["gunicorn", "api.main:app", "-b", "0.0.0.0:5000", "--workers", "4", "--threads", "4"]
+CMD ["gunicorn", "app.main:app", "-b", "0.0.0.0:5000", "--workers", "4", "--threads", "4"]
