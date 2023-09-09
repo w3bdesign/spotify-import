@@ -317,7 +317,7 @@ export async function fetchSongUrl(songName) {
  * @param {HTMLElement} playButton - The button element used to play the song.
  * @return {void} No return value.
  */
-async function playSong(songName, playButton) {
+export async function playSong(songName, playButton) {
   if (currentAudio && currentAudio.songName === songName) {
     pauseCurrentAudio();
     currentAudio.playButton = null;

@@ -2,9 +2,11 @@ import {
   handleSongFormSubmit,
   createPlayButton,
   createSelectButton,
+  playSong,
   generateSongSuggestions,
   displaySuggestions,
 } from "./songHandling.js";
+
 import {
   handleNewPlaylistFormSubmit,
   handleImportPlaylistFormSubmit,
