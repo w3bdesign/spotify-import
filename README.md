@@ -41,7 +41,7 @@ Replace the placeholders with your actual Spotify developer credentials and desi
 
 You can obtain your Spotify developer credentials from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
 
-# Deployment
+## Deployment
 
 Deployment is possible via Docker:
 
