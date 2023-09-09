@@ -34,7 +34,7 @@ To set up the project, follow these steps:
    pip install -r requirements.txt
    ```
 
-3. Rename .env.example to .env and modify the values accordingly.
+3. Rename `.env.example` to `.env` and modify the values accordingly.
 
 Replace the placeholders with your actual Spotify developer credentials and desired redirect URI.
 
