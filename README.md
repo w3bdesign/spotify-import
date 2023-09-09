@@ -1,4 +1,4 @@
-# Screenshot
+# Screenshots
 
 ![Screenshot 1 of project](https://user-images.githubusercontent.com/45217974/266754191-83d88be5-74ad-40f4-b24a-362caa311510.png)
 
