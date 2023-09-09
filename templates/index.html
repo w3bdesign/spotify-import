@@ -6,6 +6,11 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='/css/main.css') }}"
     />
+
+    <link rel="icon" type="image/x-icon"
+    href="{{ url_for('static', filename='/images/favicon.ico') }}"
+    />
+
     <title>Spotify Import</title>
   </head>
   <body id="body" class="no-transition">
@@ -48,8 +53,7 @@
 
     <h2 id="search-results-header" class="hide mt-12">Song search results:</h2>
       <div id="search-results" class="form hide"></div>   
-    <br />
-    
+    <br />    
 
     <h2 id="song-recommendations-results-header" class="mt-12 hide">Song recommendations:</h2>
     <div class="form-background" id="song-suggestions">
@@ -160,6 +164,7 @@
       type="module"
       defer
     ></script>
+   
     {% endif %}
   </body>
 </html>

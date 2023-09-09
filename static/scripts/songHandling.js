@@ -200,9 +200,6 @@ function createSongRow(songName) {
  * @return {object} The DOM element for the created table.
  */
 
-
-
-
 /*
 function createSuggestionsTable(suggestions) {
   const table = document.createElement("table");
@@ -214,9 +211,6 @@ function createSuggestionsTable(suggestions) {
 
   return table;
 }*/
-
-
-
 
 function createSuggestionsTable(suggestions) {
   const table = document.createElement("table");
@@ -250,39 +244,6 @@ function createSuggestionsTable(suggestions) {
 
   return table;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * Displays song suggestions in a suggestions div element based on input suggestions array.
