@@ -95,6 +95,36 @@ export function createPlayButton(songName) {
 }
 
 /**
+ * Creates a select button for a given song name.
+ *
+ * @param {string} songName - The name of the song.
+ * @return {HTMLButtonElement} The select button element.
+ */
+export function createSelectButton(songName) {
+  const selectButton = document.createElement("button");
+  selectButton.innerHTML = `
+    <svg viewBox="0 0 50 50" width="50px" height="50px"><g id="surface1_34_">
+    <path style="fill:#4CAF50;" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"/>
+    <path style="fill:#FFFFFF;" d="M21,14h6v20h-6V14z"/>
+    <path style="fill:#FFFFFF;" d="M14,21h20v6H14V21z"/></g>
+    </svg>`;
+  selectButton.classList.add("add-song");
+
+  selectButton.addEventListener("click", async () => {
+    searchResults.classList.remove("show");
+    searchResultsHeader.classList.remove("show");
+
+    searchResults.classList.add("hide");
+    searchResultsHeader.classList.add("hide");
+
+    const suggestions = await generateSongSuggestions(songName);
+    displaySuggestions(suggestions);
+  });
+
+  return selectButton;
+}
+
+/**
  * Creates an "add to playlist" button element with the given song name that, when clicked,
  * adds the song name to a text area on the page. The button is initially enabled, but becomes disabled
  * and changes its style when clicked to indicate it has been used.
@@ -130,6 +160,7 @@ export function createAddToPlaylistButton(songName) {
       songRecommendationsTextarea.value += "\n";
       songRecommendationsTextareaExisting.value += "\n";
     }
+
     songRecommendationsTextarea.value += songName;
     songRecommendationsTextareaExisting.value += songName;
   });
@@ -188,20 +219,26 @@ function createSuggestionsTable(suggestions) {
 export function displaySuggestions(suggestions) {
   const suggestionsDiv = document.getElementById("song-suggestions");
   const importCreateDiv = document.getElementById("import-wrapper");
+  const suggestionsHeader = document.getElementById(
+    "song-recommendations-results-header"
+  );
+
   suggestionsDiv.innerHTML = "";
 
   if (!suggestions) {
-   
     const spinner = createLoadingSpinner();
     suggestionsDiv.appendChild(spinner);
   } else {
     suggestionsDiv.appendChild(createSuggestionsTable(suggestions));
   }
 
-
-  
   suggestionsDiv.classList.add("show");
   importCreateDiv.classList.add("show");
+
+  // Show suggestions header
+  suggestionsHeader.classList.remove("hide");
+  suggestionsHeader.classList.add("show");
+
   // Set default active tab
   document.getElementById("newPlaylistTab").click();
 }

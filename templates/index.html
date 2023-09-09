@@ -6,7 +6,7 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='/css/main.css') }}"
     />
-    <title>Create Spotify Playlist</title>
+    <title>Spotify Import</title>
   </head>
   <body id="body" class="no-transition">
 
@@ -16,11 +16,15 @@
         <button class="form__submit">Sign In To Spotify</button>
       </a>        
     {% else %}
-
-    <h1>Generate song recommendations</h1>
+    
+    <div class="form-background">
+      <h1>Generate song recommendations</h1>      
+    <h3>Search for a song and GPT-4 will suggest similar songs based on the song you select</h3>
+    <h3>Select the song you want to use as reference and add the recommended song(s) to your Spotify playlist </h3>
+  </div>
     <form class="form" method="post" id="song-form">
       <label class="form__label" for="playlist_name"
-        >Search criteria (example: "Virtual Riot - Energy Drink"):</label
+        >Search criteria (enter at least 3 characters to start searching):</label
       >
       <input
         class="form__input"
@@ -39,17 +43,18 @@
         <option value="30">30</option>
         <option value="40">40</option>
         <option value="50">50</option>
-      </select>
-      
-    
+      </select>      
     </form>
 
-    <h1 id="search-results-header" class="hide mt-12">Song search results:</h1>
-      <div id="search-results" class="form hide "></div>
-   
+    <h2 id="search-results-header" class="hide mt-12">Song search results:</h2>
+      <div id="search-results" class="form hide"></div>   
     <br />
-    <div class="form-background" id="song-suggestions"></div>
+    
 
+    <h2 id="song-recommendations-results-header" class="mt-12 hide">Song recommendations:</h2>
+    <div class="form-background" id="song-suggestions">
+     
+    </div>
 
 <div id="import-wrapper" class="form__import-wrapper">
     <h1 class="margin-top-four-rem">Import To Spotify</h1>

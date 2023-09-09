@@ -1,7 +1,7 @@
 import {
   handleSongFormSubmit,
   createPlayButton,
-  createAddToPlaylistButton,
+  createSelectButton,
   generateSongSuggestions,
   displaySuggestions,
 } from "./songHandling.js";
@@ -138,7 +138,8 @@ function displaySearchResults(results) {
     row.appendChild(playButtonCell);
 
     const selectButtonCell = document.createElement("td");
-    const selectButton = createAddToPlaylistButton(result.song_name);
+
+    const selectButton = createSelectButton(result.song_name);
 
     selectButton.addEventListener("click", async () => {
       searchResults.classList.remove("show");

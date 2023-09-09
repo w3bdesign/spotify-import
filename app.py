@@ -44,14 +44,14 @@ Available models: ['gpt-4', 'gpt-3.5-turbo', 'gpt-4-poe', 'gpt-3.5-turbo-poe', '
 
 
 def generate_song_suggestions(seed_song, num_suggestions=20):
-    prompt = f"Based on the song '{seed_song}', please suggest {num_suggestions} similar songs. I do not want any links, Youtube videos or other data. Just the artist name and song name."
+    prompt = f"Based on the song '{seed_song}', please suggest {num_suggestions} similar songs. I do not want any links, Youtube videos or other data. Just the artist name and song name. Please try to suggest songs that are as close to the song '{seed_song}' as possible."
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
-        # model="gpt-3.5-turbo",
+        model="gpt-4",      
         messages=[
             {"role": "user", "content": prompt},
         ],
+        #temperature=0.7,
     )
 
     return response
@@ -201,7 +201,7 @@ def create_playlist():
         sp = spotipy.Spotify(auth_manager=auth_manager)
 
         playlist = sp.user_playlist_create(
-            user=username, name=playlist_name, description=playlist_description
+            name=playlist_name, description=playlist_description
         )
 
         track_ids = []
