@@ -29,32 +29,45 @@ To set up the project, follow these steps:
 
 Replace `YOUR_USERNAME` with your actual GitHub username.
 
-
 2. Install the required packages:
 
    ```
    pip install -r requirements.txt
    ```
 
-3. Create a `.env` file in the project root directory with the following variables:
+3. Rename .env.example to .env and modify the values accordingly.
 
-   ```
-   SPOTIPY_CLIENT_ID=your_spotify_client_id
-   SPOTIPY_CLIENT_SECRET=your_spotify_client_secret
-   SPOTIPY_REDIRECT_URI=your_redirect_uri
-   SPOTIPY_USER_NAME=your_spotify_username
-   ```
-
-Replace the placeholders with your actual Spotify developer credentials and desired redirect URI. 
+Replace the placeholders with your actual Spotify developer credentials and desired redirect URI.
 
 You can obtain your Spotify developer credentials from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
+
+# Deployment
+
+Deployment is possible via Docker:
+
+```
+docker build -t spotify-import .
+```
+
+Start Docker like this:
+
+```
+docker run -p 5000:5000 \
+  -e SPOTIPY_CLIENT_ID=changeme \
+  -e SPOTIPY_CLIENT_SECRET=changeme \
+  -e SPOTIPY_REDIRECT_URI=changeme \
+  -e OPENAI_API_KEY=changeme \
+  -e OPENAI_API_BASE_URL=changeme \
+  spotify-import
+```
 
 ## Usage
 
 To run the application, execute the following command:
 
 ```
-python app.py
+cd app
+python main.py
 ```
 
 The application will start running on `http://127.0.0.1:5000/`.
