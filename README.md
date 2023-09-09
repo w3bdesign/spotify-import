@@ -14,6 +14,7 @@ A Flask web application that allows users to use chatGPT to generate song recomm
 - Play button to listen to each song
 - Create a new Spotify playlist
 - Import to an existing playlist
+- Custom toast design with Toastify
 
 ## Installation
 
