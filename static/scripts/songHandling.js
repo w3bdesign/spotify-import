@@ -145,7 +145,7 @@ export function createAddToPlaylistButton(songName) {
   addToPlaylistButton.addEventListener("click", function () {
     if (!this.hasAttribute("disabled")) {
       this.setAttribute("disabled", "disabled");
-      this.classList.add("disabled-button");
+      this.classList.add("add-song-disabled");
     }
 
     const songRecommendationsTextarea = document.getElementById(
