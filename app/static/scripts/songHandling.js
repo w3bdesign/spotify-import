@@ -78,6 +78,9 @@ function extractSongSuggestions(messageContent) {
  * @return {HTMLButtonElement} - The play button element.
  */
 export function createPlayButton(songName) {
+  const playButtonContainer = document.createElement("div");
+  playButtonContainer.classList.add("play-button-container");
+
   const playButton = document.createElement("button");
   playButton.setAttribute("data-state", "play");
   playButton.innerHTML = `
@@ -91,15 +94,38 @@ export function createPlayButton(songName) {
     playSong(songName, playButton);
   });
 
-  // Check for song URL and hide the play button if not found
+  // Create a custom tooltip
+  const tooltip = document.createElement("span");
+  tooltip.classList.add("tooltip");
+  tooltip.textContent = "Song URL not found";
+  tooltip.setAttribute("role", "tooltip");
+  tooltip.style.display = "none";
+  playButtonContainer.appendChild(tooltip);
+
+  // Show and hide the tooltip on mouseenter and mouseleave events
+  playButton.addEventListener("mouseenter", () => {
+    if (playButton.disabled) {
+      tooltip.style.display = "block";
+      tooltip.classList.add("fade-in");
+    }
+  });
+
+  playButton.addEventListener("mouseleave", () => {
+    tooltip.style.display = "none";
+    tooltip.classList.remove("fade-in");
+  });
+
+  // Check for song URL and disable the play button if not found
   (async () => {
     const songUrl = await fetchSongUrl(songName);
     if (!songUrl) {
-      playButton.style.display = "none";
+      playButton.disabled = true;
+      playButton.classList.add("disabled");
     }
   })();
 
-  return playButton;
+  playButtonContainer.appendChild(playButton);
+  return playButtonContainer;
 }
 
 /**
