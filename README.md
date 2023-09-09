@@ -16,6 +16,7 @@ A Flask web application that allows users to use GPT-4 to generate song recommen
 - Import to an existing playlist
 - Custom toast design with Toastify
 - Deployment is possible via Docker
+- Spotify favicon
 
 ## Installation
 
