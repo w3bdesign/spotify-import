@@ -91,6 +91,14 @@ export function createPlayButton(songName) {
     playSong(songName, playButton);
   });
 
+  // Check for song URL and hide the play button if not found
+  (async () => {
+    const songUrl = await fetchSongUrl(songName);
+    if (!songUrl) {
+      playButton.style.display = "none";
+    }
+  })();
+
   return playButton;
 }
 
@@ -111,6 +119,11 @@ export function createSelectButton(songName) {
   selectButton.classList.add("add-song");
 
   selectButton.addEventListener("click", async () => {
+    const searchResults = document.getElementById("search-results");
+    const searchResultsHeader = document.getElementById(
+      "search-results-header"
+    );
+
     searchResults.classList.remove("show");
     searchResultsHeader.classList.remove("show");
 
@@ -317,7 +330,7 @@ export async function fetchSongUrl(songName) {
  * @param {HTMLElement} playButton - The button element used to play the song.
  * @return {void} No return value.
  */
-async function playSong(songName, playButton) {
+export async function playSong(songName, playButton) {
   if (currentAudio && currentAudio.songName === songName) {
     pauseCurrentAudio();
     currentAudio.playButton = null;
