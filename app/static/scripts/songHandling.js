@@ -111,6 +111,9 @@ export function createSelectButton(songName) {
   selectButton.classList.add("add-song");
 
   selectButton.addEventListener("click", async () => {
+    const searchResults = document.getElementById("search-results");
+    const searchResultsHeader = document.getElementById("search-results-header");
+    
     searchResults.classList.remove("show");
     searchResultsHeader.classList.remove("show");
 
