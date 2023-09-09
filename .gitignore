@@ -154,3 +154,4 @@ cython_debug/
 # Cache and session data
 .cache-*
 .flask_session/*
+app/.flask_session/*
