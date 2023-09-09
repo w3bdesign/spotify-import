@@ -1,42 +1,19 @@
 {
-  "builds": [
-    {
-      "src": "api/asgi.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/",
-      "dest": "api/asgi.py"
-    },
-    {
-      "src": "/search_song",
-      "dest": "api/asgi.py"
-    },
-    {
-      "src": "/search_songs",
-      "dest": "api/asgi.py"
-    },
-    {
-      "src": "/generate_suggestions",
-      "dest": "api/asgi.py"
-    },
-    {
-      "src": "/playlists",
-      "dest": "api/asgi.py"
-    },
-    {
-      "src": "/generate_playlist",
-      "dest": "api/asgi.py"
-    },
-    {
-      "src": "/import_to_existing_playlist",
-      "dest": "api/asgi.py"
-    },
-    {
-      "src": "/success",
-      "dest": "api/asgi.py"
-    }
-  ]
-}
+    "builds": [
+      {
+        "src": "api/main.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(search_song|search_songs|generate_suggestions|playlists|generate_playlist|import_to_existing_playlist|success)",
+        "dest": "api/main.py"
+      },
+      {
+        "src": "/",
+        "dest": "api/main.py"
+      }
+    ]
+  }
+  
