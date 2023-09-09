@@ -143,6 +143,25 @@ export function createAddToPlaylistButton(songName) {
   addToPlaylistButton.classList.add("add-song");
 
   addToPlaylistButton.addEventListener("click", function () {
+    Toastify({
+      text: "Song added to playlist",
+      duration: 2000,
+      destination: "https://github.com/apvarun/toastify-js",
+      className: "form",
+      newWindow: true,
+      gravity: "bottom", // `top` or `bottom`
+      position: "center", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      style: {
+        background: "#4CAF50",
+        boxShadow: "none",
+        textAlign: "center",
+        padding: "20px",
+        borderRadius: "5px",
+      },
+      onClick: function () {}, // Callback after click
+    }).showToast();
+
     if (!this.hasAttribute("disabled")) {
       this.setAttribute("disabled", "disabled");
       this.classList.add("add-song-disabled");
@@ -199,18 +218,6 @@ function createSongRow(songName) {
  * @param {array} suggestions - An array of song names to display in the table.
  * @return {object} The DOM element for the created table.
  */
-
-/*
-function createSuggestionsTable(suggestions) {
-  const table = document.createElement("table");
-  table.classList.add("song-suggestions-table");
-
-  for (const songName of suggestions) {
-    table.appendChild(createSongRow(songName));
-  }
-
-  return table;
-}*/
 
 function createSuggestionsTable(suggestions) {
   const table = document.createElement("table");
