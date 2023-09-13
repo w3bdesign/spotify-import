@@ -56,7 +56,7 @@ docker build -t spotify-import .
 Start Docker like this:
 
 ```
-docker run -p 5000:5000 \
+docker run -d -p 5000:5000 \
   -e SPOTIPY_CLIENT_ID=changeme \
   -e SPOTIPY_CLIENT_SECRET=changeme \
   -e SPOTIPY_REDIRECT_URI=changeme \
