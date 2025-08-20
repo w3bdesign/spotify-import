@@ -1,4 +1,4 @@
-Flask==3.1.0
+Flask==3.1.2
 openai==0.28.1
 spotipy==2.24.0
 python-dotenv==1.0.1
