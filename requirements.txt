@@ -3,4 +3,4 @@ openai==2.11.0
 spotipy==2.25.2
 python-dotenv==1.1.1
 Flask-Session==0.8.0
-gunicorn==24.0.0
+gunicorn==24.1.1
